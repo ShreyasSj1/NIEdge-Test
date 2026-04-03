@@ -93,6 +93,10 @@
       return;
     }
 
+    if (link.dataset.hidePlaceholderBadge === "true") {
+      return;
+    }
+
     link.dataset.statusEnhanced = "true";
     link.classList.add("niedge-unavailable-link");
     link.setAttribute("aria-label", "Coming soon");
