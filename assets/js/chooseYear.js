@@ -85,6 +85,12 @@ function initScrollEffects(shapeSelector) {
 function initYearCards() {
   const cards = document.querySelectorAll(".year-card, .year-card-link");
   cards.forEach(function (card) {
+    if (card.classList.contains("year-card")) {
+      requestAnimationFrame(function () {
+        card.classList.add("animate");
+      });
+    }
+
     card.addEventListener("mouseenter", function () {
       const progress = card.querySelector(".loading-progress");
       if (progress) {
