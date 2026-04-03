@@ -152,21 +152,45 @@ function initRevealAnimations() {
 }
 
 function initCounters() {
+  const statsSection = document.querySelector(".skills");
   const counters = document.querySelectorAll(".counter");
+  let hasAnimated = false;
+
+  if (!statsSection || !counters.length) {
+    return;
+  }
+
+  function runCounters() {
+    if (hasAnimated) {
+      return;
+    }
+
+    hasAnimated = true;
+    counters.forEach(function (counter) {
+      animateCounter(counter);
+    });
+  }
+
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) {
         return;
       }
 
-      animateCounter(entry.target);
-      observer.unobserve(entry.target);
+      runCounters();
+      observer.unobserve(statsSection);
     });
-  }, { threshold: 0.5 });
-
-  counters.forEach(function (counter) {
-    observer.observe(counter);
+  }, {
+    threshold: 0.2,
+    rootMargin: "0px 0px -10% 0px"
   });
+
+  observer.observe(statsSection);
+
+  if (window.scrollY + window.innerHeight >= statsSection.offsetTop + 40) {
+    runCounters();
+    observer.unobserve(statsSection);
+  }
 }
 
 function animateCounter(counter) {
