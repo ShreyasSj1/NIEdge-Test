@@ -15,6 +15,10 @@
     --shadow-light: 0 8px 25px rgba(255, 193, 7, 0.15);
 }
 
+.navbar {
+    font-size: 0.95rem;
+}
+
 /* Navigation Bar */
 .navbar {
     background: rgba(255, 255, 255, 0.95);

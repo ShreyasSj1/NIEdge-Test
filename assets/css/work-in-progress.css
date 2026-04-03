@@ -276,7 +276,7 @@
 }
 
 html {
-  font-size: var(--font-size-base);
+  font-size: 13px;
   font-family: var(--font-family-base);
   line-height: var(--line-height-normal);
   color: var(--color-text);
