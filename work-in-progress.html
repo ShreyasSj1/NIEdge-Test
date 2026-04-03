@@ -49,39 +49,33 @@
         <div class="content-card">
           <div class="card-glow"></div>
           <h1 class="main-title">
-            <span class="title-line">DROPPING</span>
-            <span class="title-line">SOON</span>
+            <span class="title-line">WORK IN</span>
+            <span class="title-line">PROGRESS</span>
           </h1>
-
-
-
-
+          <section class="email-subscription-section">
+            <form class="subscription-form" id="subscriptionForm" novalidate>
+              <input
+                type="email"
+                id="emailInput"
+                class="subscription-input"
+                placeholder="Enter email"
+                autocomplete="email"
+                aria-label="Email address"
+                required
+              />
+              <button
+                type="submit"
+                id="submitBtn"
+                class="subscription-button"
+                disabled
+              >
+                <span class="button-text">Subscribe for future updates</span>
+              </button>
+            </form>
+            <div class="subscription-message" id="subscriptionMessage"></div>
+          </section>
         </div>
       </div>
-
-      <!-- Email Subscription Section -->
-      <section class="email-subscription-section">
-        <form class="subscription-form" id="subscriptionForm" novalidate>
-          <input
-            type="email"
-            id="emailInput"
-            class="subscription-input"
-            placeholder="Enter email"
-            autocomplete="email"
-            aria-label="Email address"
-            required
-          />
-          <button
-            type="submit"
-            id="submitBtn"
-            class="subscription-button"
-            disabled
-          >
-            <span class="button-text">Subscribe for future updates</span>
-          </button>
-        </form>
-        <div class="subscription-message" id="subscriptionMessage"></div>
-      </section>
     </main>
 
     <div class="theme-selector hidden" id="themeSelector"></div>

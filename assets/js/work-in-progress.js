@@ -33,6 +33,7 @@ class SimplifiedApp {
     const loader = document.getElementById("loader");
     const progressFill = document.querySelector(".loader-fill");
     const percentage = document.querySelector(".loader-percentage");
+    const mainContent = document.querySelector(".main-content");
 
     if (!loader || !progressFill || !percentage) {
       return;
@@ -52,6 +53,9 @@ class SimplifiedApp {
           setTimeout(() => {
             loader.classList.remove("active");
             loader.classList.add("hidden");
+            if (mainContent) {
+              mainContent.classList.add("loaded");
+            }
             this.isLoaded = true;
           }, 500);
         }, 220);
@@ -171,7 +175,7 @@ class EmailSubscriptionHandler {
       return;
     }
     this.message.textContent = text;
-    this.message.className = "subscription-message " + type;
+    this.message.className = "subscription-message " + type + " show";
   }
 
   startCooldown() {
