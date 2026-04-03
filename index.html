@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Critical resource hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+    <!-- Google tag (gtag.js) - Load asynchronously -->
+    <script>
+      (function () {
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-FRSCNMCS94";
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-FRSCNMCS94");
+      })();
+    </script>
+
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>
+      NIEdge - Verified Notes, Previous Year Papers, Question Banks & Skill
+      Development
+    </title>
+    <meta
+      name="description"
+      content="Get free, verified study notes, solved previous year question papers (PYQs), and extensive question banks on NIEdge. Access top-quality skill development resources to ace your exams and boost your career !!"
+    />
+    <meta name="application-name" content="NIEdge" />
+    <meta name="author" content="NIEdge Team" />
+    <meta
+      name="keywords"
+      content="NIEdge, study notes, previous year papers, question banks, skill development, academic resources, engineering notes, PYQ, exam preparation, NIE notes, free study material"
+    />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <!-- Bing/MSN-specific crawler directives -->
+    <meta
+      name="bingbot"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <link rel="canonical" href="https://niedge.vercel.app" />
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta
+      property="og:title"
+      content="NIEdge - Verified Notes, Previous Year Papers, Question Banks & Skill Development"
+    />
+    <meta
+      property="og:description"
+      content="Get free, verified study notes, solved previous year question papers (PYQs), and extensive question banks on NIEdge. Access top-quality skill development resources to ace your exams and boost your career !!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://niedge.vercel.app" />
+    <meta property="og:site_name" content="NIEdge" />
+    <meta
+      property="og:image"
+      content="https://niedge.vercel.app/assets/images/logo-icon.jpg"
+    />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="1280" />
+    <meta property="og:image:alt" content="NIEdge - Student Study Platform" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="NIEdge - Verified Notes, Previous Year Papers, Question Banks & Skill Development"
+    />
+    <meta
+      name="twitter:description"
+      content="Get free, verified study notes, solved previous year question papers (PYQs), and extensive question banks on NIEdge."
+    />
+    <meta
+      name="twitter:image"
+      content="https://niedge.vercel.app/assets/images/logo-icon.jpg"
+    />
+    <meta name="twitter:image:alt" content="NIEdge - Student Study Platform" />
+    <meta name="twitter:site" content="@ZYXdge" />
+    <meta name="twitter:creator" content="@ZYXdge" />
+
+    <!-- Favicons - Preload critical ones -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/android-chrome-512x512.png"
+    />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <!-- Microsoft Edge/Windows tile image for pinned sites -->
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/assets/css/style.css" as="style" />
+    <link rel="preload" href="/assets/images/LOGO.jpg" as="image" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      as="style"
+    />
+
+    <!-- Critical CSS inlined -->
+    <style>
+      /* Critical above-the-fold CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+      }
+      :root {
+        --primary-color: #ffc107;
+        --primary-dark: #ff8f00;
+        --dark-color: #212121;
+        --white: #ffffff;
+        --gradient-1: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+      }
+      .navbar {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+      .hero {
+        background: var(--gradient-1);
+        color: var(--dark-color);
+        padding: 130px 0 80px;
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+    </style>
+
+    <!-- Main Styles - Load asynchronously -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <noscript><link rel="stylesheet" href="assets/css/style.css" /></noscript>
+
+    <!-- Font Awesome - Load asynchronously -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    /></noscript>
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "NIEdge",
+        "alternateName": "NIEdge - Verified Notes, PYQs, and Skill Development",
+        "url": "https://niedge.vercel.app",
+        "description": "Get free, verified study notes, solved previous year question papers (PYQs), and question banks on NIEdge. Access top-quality skill development resources.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "NIEdge",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://niedge.vercel.app/assets/images/logo-icon.jpg"
+          }
+        },
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Vansh Gupta",
+            "jobTitle": "Co-Founder & Developer",
+            "image": "https://niedge.vercel.app/assets/images/vansh-gupta-niedge-cofounder.jpg",
+            "description": "Co-Founder and Web Architect of NIEdge, a student academic resource platform for NIE students.",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "NIEdge"
+            },
+            "sameAs": [
+              "https://github.com/vansh917917",
+              "https://linkedin.com/in/vansh917",
+              "https://x.com/vansh____917",
+              "https://www.instagram.com/vansh___917"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Shreyas S J",
+            "jobTitle": "Co-Founder & UI/UX Designer",
+            "image": "https://niedge.vercel.app/assets/images/shreyas-sj-niedge-cofounder.jpg",
+            "description": "Co-Founder and UI/UX Designer of NIEdge, a student academic resource platform for NIE students.",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "NIEdge"
+            },
+            "sameAs": [
+              "https://x.com/LoneWolf_SJ",
+              "https://www.instagram.com/shreyas_sj7"
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Animated background - Optimized for GPU -->
+    <div class="animated-bg" style="will-change: transform">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+      </div>
+      <div class="tech-grid"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="will-change: transform">
+      <div class="container">
+        <a href="#" class="logo">
+          <img
+            src="/assets/images/LOGO.jpg"
+            class="logo-image"
+            alt="NIEdge Logo"
+          />
+        </a>
+        <div class="nav-links">
+          <a href="/index.html#home">HOME</a>
+          <a href="/work-in-progress.html">EVENTS</a>
+          <a href="/index.html#academics">ACADEMICS</a>
+          <a href="/index.html#skills-new">SKILLS</a>
+          <a href="/form.html">FEEDBACK</a>
+          <a href="/index.html#about">ABOUT US</a>
+        </div>
+        <div class="hamburger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Stop searching...<br />Start learning with NIEdge
+          </h1>
+          <p class="hero-subtitle">
+            One stop solution for all your academic and skill needs!
+          </p>
+          <a href="#academics" class="btn explore-btn">
+            <span>Explore</span>
+            <i class="fas fa-arrow-right btn-icon" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="hero-visual">
+          <div class="floating-elements">
+            <div class="float-item code-block" style="will-change: transform">
+              <div class="code-line"></div>
+              <div class="code-line"></div>
+              <div class="code-line"></div>
+            </div>
+            <div
+              class="float-item brain-circuit"
+              style="will-change: transform"
+            >
+              <i class="fas fa-brain" aria-hidden="true"></i>
+            </div>
+            <div class="float-item book-stack" style="will-change: transform">
+              <i class="fas fa-book-open" aria-hidden="true"></i>
+            </div>
+            <div
+              class="float-item algorithm-icon"
+              style="will-change: transform"
+            >
+              <i class="fas fa-project-diagram" aria-hidden="true"></i>
+            </div>
+            <div
+              class="float-item neural-network"
+              style="will-change: transform"
+            >
+              <i class="fas fa-sitemap" aria-hidden="true"></i>
+            </div>
+            <div class="float-item ml-icon" style="will-change: transform">
+              <i class="fas fa-robot" aria-hidden="true"></i>
+            </div>
+            <div class="float-item physics-icon" style="will-change: transform">
+              <i class="fas fa-atom" aria-hidden="true"></i>
+            </div>
+            <div class="float-item math-icon" style="will-change: transform">
+              <i class="fas fa-calculator" aria-hidden="true"></i>
+            </div>
+            <div class="float-item data-icon" style="will-change: transform">
+              <i class="fas fa-chart-line" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-wave"></div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider">
+      <div class="divider-content">
+        <div class="pulse-dot"></div>
+      </div>
+    </div>
+
+    <!-- Academics Section -->
+    <section class="academics" id="academics">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Got those notes..?</h2>
+          <p class="section-subtitle">Never ask again</p>
+        </div>
+        <div class="content-wrapper">
+          <div class="text-content">
+            <p>
+              Get all the Academic notes, PYQs, QBs and assignments with
+              <strong>just one click.....</strong>
+            </p>
+            <a href="/chooseYear.html" rel="noopener" class="btn academics-btn">
+              <span>Academics</span>
+              <i class="fas fa-arrow-right btn-icon" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="visual-content">
+            <div class="documents-animation">
+              <div class="doc doc-1" style="will-change: transform">
+                <i class="fas fa-file-alt" aria-hidden="true"></i>
+              </div>
+              <div class="doc doc-2" style="will-change: transform">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+              </div>
+              <div class="doc doc-3" style="will-change: transform">
+                <i class="fas fa-file-word" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills New Section -->
+    <section class="skills-new" id="skills-new">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Unlock your full potential <br />with NIEdge
+          </h2>
+        </div>
+        <div class="content-wrapper">
+          <div class="text-content">
+            <p>
+              ''Skills are the semicolons of success -
+              <strong>miss them and it all breaks''</strong>
+            </p>
+            <a href="/work-in-progress.html" class="btn skills-btn">
+              <span>Skills</span>
+              <i class="fas fa-rocket btn-icon" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="visual-content">
+            <div class="skills-animation">
+              <div class="skill-icon skill-1" style="will-change: transform">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+              </div>
+              <div class="skill-icon skill-2" style="will-change: transform">
+                <i class="fas fa-project-diagram" aria-hidden="true"></i>
+              </div>
+              <div class="skill-icon skill-3" style="will-change: transform">
+                <i class="fas fa-robot" aria-hidden="true"></i>
+              </div>
+              <div class="skill-icon skill-4" style="will-change: transform">
+                <i class="fas fa-code" aria-hidden="true"></i>
+              </div>
+              <div class="skill-icon skill-5" style="will-change: transform">
+                <i class="fas fa-microchip" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills/Stats Section -->
+    <section class="skills" id="skills">
+      <div class="stats-header">
+        <h2 class="section-title">Website Stats</h2>
+      </div>
+      <div class="stats">
+        <div class="stat-item" style="will-change: transform">
+          <div class="stat-icon">
+            <i class="fas fa-eye" aria-hidden="true"></i>
+          </div>
+          <h3>Views</h3>
+          <p class="counter plus" data-target="15000+">0</p>
+          <div class="stat-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="stat-item" style="will-change: transform">
+          <div class="stat-icon">
+            <i class="fas fa-users" aria-hidden="true"></i>
+          </div>
+          <h3>Active Users</h3>
+          <p class="counter plus" data-target="700+">0</p>
+          <div class="stat-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="stat-item" style="will-change: transform">
+          <div class="stat-icon">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+          </div>
+          <h3>Requests</h3>
+          <p class="counter plus" data-target="50+">0</p>
+          <div class="stat-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Why NIEdge...?</h2>
+        </div>
+        <div class="features">
+          <div class="feature" style="will-change: transform">
+            <div class="feature-icon">
+              <div class="icon-bg"></div>
+              <i class="fas fa-users" aria-hidden="true"></i>
+            </div>
+            <h3>Built by students, for students.</h3>
+            <p>
+              No fancy distractions, just what you actually need — fast access,
+              clean layout, and no nonsense.
+            </p>
+            <div class="feature-glow"></div>
+          </div>
+          <div class="feature" style="will-change: transform">
+            <div class="feature-icon">
+              <div class="icon-bg"></div>
+              <i class="fas fa-running" aria-hidden="true"></i>
+            </div>
+            <h3>Crash course or full prep — it fits your style.</h3>
+            <p>
+              Whether you're a last-minute sprinter or a chill planner, get
+              cursed notes and smart questions that match your way of studying.
+            </p>
+            <div class="feature-glow"></div>
+          </div>
+          <div class="feature" style="will-change: transform">
+            <div class="feature-icon">
+              <div class="icon-bg"></div>
+              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+            </div>
+            <h3>Skills that matter after college too.</h3>
+            <p>
+              Learn real skills like coding, design, communication — the kind
+              that help you get hired, not just pass.
+            </p>
+            <div class="feature-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About Us</h2>
+        </div>
+
+        <div class="team">
+          <div class="member" itemscope itemtype="https://schema.org/Person">
+            <div class="member-card" style="will-change: transform">
+              <div class="animated-border"></div>
+              <div class="member-img">
+                <img
+                  src="assets/images/vansh-gupta-niedge-cofounder.jpg"
+                  class="member-photo"
+                  alt="Vansh Gupta, co-founder and web architect of NIEdge"
+                  loading="lazy"
+                  itemprop="image"
+                />
+                <div class="member-overlay">
+                  <div class="social-links">
+                    <a
+                      href="https://x.com/vansh____917"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Vansh's Twitter"
+                      ><i class="fab fa-twitter" aria-hidden="true"></i
+                    ></a>
+                    <a
+                      href="https://www.instagram.com/vansh___917?igsh=ZzlsdTd2NnoyOGg3"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Vansh's Instagram"
+                      ><i class="fab fa-instagram" aria-hidden="true"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="member-info">
+                <h3 itemprop="name">Vansh Gupta</h3>
+                <span class="role" itemprop="jobTitle">Tech Guy</span>
+                <span class="year">2nd Year ISE</span>
+                <div class="member-skills">
+                  <span class="skill-tag">Web Architect</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="member" itemscope itemtype="https://schema.org/Person">
+            <div class="member-card" style="will-change: transform">
+              <div class="animated-border"></div>
+              <div class="member-img">
+                <img
+                  src="assets/images/shreyas-sj-niedge-cofounder.jpg"
+                  class="member-photo"
+                  alt="Shreyas S J, co-founder and designer of NIEdge"
+                  loading="lazy"
+                  itemprop="image"
+                />
+                <div class="member-overlay">
+                  <div class="social-links">
+                    <a
+                      href="https://x.com/LoneWolf_SJ"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Shreyas's Twitter"
+                      ><i class="fab fa-twitter" aria-hidden="true"></i
+                    ></a>
+                    <a
+                      href="https://www.instagram.com/shreyas_sj7?igsh=aGxqZHQ2dGQ4Nndn"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Shreyas's Instagram"
+                      ><i class="fab fa-instagram" aria-hidden="true"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="member-info">
+                <h3 itemprop="name">Shreyas S J</h3>
+                <span class="role" itemprop="jobTitle">Design Guy</span>
+                <span class="year">2nd Year ISE</span>
+                <div class="member-skills">
+                  <span class="skill-tag">UI/UX Designer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedback">
+          <div class="feedback-card">
+            <h3>Got thoughts? We want 'em.</h3>
+            <p>
+              Whether it's a genius idea, a tiny tweak, or just "make it less
+              boring", slide your feedback into our DMs (ahem... suggestion
+              box).
+            </p>
+            <p>
+              Roast us, praise us, or blow our minds - Help make NIEdge the site
+              your future self will thank you for.
+            </p>
+          </div>
+        </div>
+
+        <div class="connect">
+          <h3>Connect With Us...</h3>
+          <a href="mailto:niedge.nie@gmail.com" aria-label="Email NIEdge">
+            <div class="brand-logo-placeholder">
+              <div class="logo-animation">
+                <div class="logo-ring"></div>
+                <div class="logo-ring"></div>
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </div>
+            </div>
+          </a>
+          <p>
+            Email us:
+            <a href="mailto:niedge.nie@gmail.com">niedge.nie@gmail.com</a>
+          </p>
+          <p>[PS: We try to respond to all queries]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="fo1">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <h3>NIEdge</h3>
+            <p>
+              Your companion for cracking exams and building future-ready skills
+              — all in one place.
+            </p>
+            <div class="social-icons">
+              <a
+                href="https://chat.whatsapp.com/DNRXf3b7YBRITpSaOSwKMz"
+                target="_blank"
+                rel="noopener"
+                class="social-icon"
+                aria-label="NIEdge Whatsapp Community"
+                ><i class="fab fa-whatsapp" aria-hidden="true"></i
+              ></a>
+              <a
+                href="mailto:niedge.nie@gmail.com"
+                class="social-icon"
+                target="_blank"
+                rel="noopener"
+                aria-label="NIEdge Email"
+              >
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+              
+            </div>
+          </div>
+
+          <div class="quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="work-in-progress.html">Events</a></li>
+              <li><a href="#academics">Academics</a></li>
+              <li><a href="#skills-new">Skills</a></li>
+              <li><a href="form.html">Feedback</a></li>
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div>
+
+          <div class="connect-with-us">
+            <h3>Connect With Us</h3>
+            <ul>
+              <li>
+                <a href="mailto:niedge.nie@gmail.com"
+                  ><i class="fas fa-envelope" aria-hidden="true"></i
+                  >niedge.nie@gmail.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://chat.whatsapp.com/DNRXf3b7YBRITpSaOSwKMz"
+                  target="_blank"
+                  rel="noopener"
+                  ><i class="fab fa-whatsapp" aria-hidden="true"></i>NIEdge
+                  Community</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            NIEdge © 2025. ALL RIGHTS RESERVED <br />(We have no idea what that
+            means but it sounds cool)
+          </p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="/assets/js/script.js" async></script>
+  </body>
+</html>

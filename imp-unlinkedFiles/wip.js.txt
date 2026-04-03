@@ -1,0 +1,561 @@
+/**
+ * Enhanced Work in Progress - Premium JavaScript Experience
+ */
+class SimplifiedApp {
+    constructor() {
+        this.quotes = [
+            "CRAFTING THE EXTRAORDINARY",
+            "ENGINEERING THE FUTURE", 
+            "REDEFINING WHAT'S POSSIBLE",
+            "PUSHING CREATIVE BOUNDARIES",
+            "ARCHITECTING TOMORROW",
+            "BUILDING DIGITAL EXCELLENCE",
+            "INNOVATING WITH PASSION",
+            "CREATING MASTERPIECES"
+        ];
+        this.currentQuoteIndex = 0;
+        this.particles = [];
+        this.isLoaded = false;
+        this.maxParticles = window.innerWidth > 768 ? 35 : 25;
+        this.animationFrameId = null;
+        this.quoteRotationInterval = null;
+        
+        this.init();
+    }
+
+    init() {
+        this.showLoader();
+        this.setupEventListeners();
+        this.initParticleSystem();
+        this.startLoadingSequence();
+        
+        setTimeout(() => {
+            this.initQuoteRotation();
+        }, 3000);
+    }
+
+    showLoader() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            loader.classList.add('active');
+            loader.classList.remove('hidden');
+        }
+    }
+
+    setupEventListeners() {
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.createRipple(e, backBtn);
+                setTimeout(() => this.goBack(), 150);
+            });
+
+            backBtn.addEventListener('mouseenter', () => {
+                backBtn.style.transform = 'translateY(-4px) scale(1.05)';
+                backBtn.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.25), 0 6px 15px rgba(255, 140, 0, 0.3), 0 0 20px rgba(255, 140, 0, 0.4)';
+            });
+
+            backBtn.addEventListener('mouseleave', () => {
+                backBtn.style.transform = 'translateY(0) scale(1)';
+                backBtn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                if (backBtn) {
+                    const rect = backBtn.getBoundingClientRect();
+                    this.createRipple({
+                        clientX: rect.left + rect.width / 2,
+                        clientY: rect.top + rect.height / 2
+                    }, backBtn);
+                }
+                setTimeout(() => this.goBack(), 150);
+            }
+        });
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.handleResize();
+            }, 100);
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (this.animationFrameId) {
+                    cancelAnimationFrame(this.animationFrameId);
+                }
+            } else {
+                this.animateParticles();
+            }
+        });
+    }
+
+    createRipple(e, element) {
+        const ripple = element.querySelector('.btn-ripple');
+        if (!ripple) return;
+
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        ripple.style.animation = 'none';
+        ripple.offsetHeight;
+        ripple.style.animation = 'ripple 0.6s linear';
+    }
+
+    startLoadingSequence() {
+        const loader = document.getElementById('loader');
+        const progressFill = document.querySelector('.loader-fill');
+        const percentage = document.querySelector('.loader-percentage');
+        
+        if (!loader || !progressFill || !percentage) return;
+        
+        let progress = 0;
+        let accelerationFactor = 6.18;
+        
+        const updateProgress = () => {
+            const increment = (Math.random() * 8 + 2) * accelerationFactor;
+            progress += increment;
+            
+            if (progress > 60) accelerationFactor = 1.5;
+            if (progress > 80) accelerationFactor = 2;
+            if (progress > 100) progress = 100;
+            
+            progressFill.style.width = `${progress}%`;
+            progressFill.style.boxShadow = `0 0 ${10 + (progress * 0.3)}px rgba(255, 140, 0, ${0.4 + (progress * 0.006)}), inset 0 1px 0 rgba(255, 255, 255, 0.3)`;
+            percentage.textContent = `${Math.floor(progress)}%`;
+            percentage.style.transform = `scale(${1 + (progress * 0.001)})`;
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    loader.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        loader.classList.remove('active');
+                        loader.classList.add('hidden');
+                        this.isLoaded = true;
+                        this.initMainAnimations();
+                    }, 600);
+                }, 500);
+            }
+        };
+        
+        const interval = setInterval(updateProgress, 120);
+        updateProgress();
+    }
+
+    initParticleSystem() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            this.maxParticles = window.innerWidth > 768 ? 35 : 25;
+            this.createParticles();
+        };
+        
+        resizeCanvas();
+        this.createParticles();
+        this.animateParticles();
+    }
+
+    createParticles() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        
+        this.particles = [];
+        for (let i = 0; i < this.maxParticles; i++) {
+            this.particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
+                size: Math.random() * 4 + 2,
+                opacity: Math.random() * 0.6 + 0.3,
+                hue: Math.random() * 40 + 20,
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: Math.random() * 0.03 + 0.015
+            });
+        }
+    }
+
+    animateParticles() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            this.particles.forEach((particle) => {
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                
+                if (particle.x < 0) particle.x = canvas.width;
+                if (particle.x > canvas.width) particle.x = 0;
+                if (particle.y < 0) particle.y = canvas.height;
+                if (particle.y > canvas.height) particle.y = 0;
+                
+                particle.pulse += particle.pulseSpeed;
+                const pulseOpacity = particle.opacity + Math.sin(particle.pulse) * 0.3;
+                const pulseSize = particle.size + Math.sin(particle.pulse) * 1;
+                
+                ctx.save();
+                
+                const gradient = ctx.createRadialGradient(
+                    particle.x, particle.y, 0,
+                    particle.x, particle.y, pulseSize * 4
+                );
+                gradient.addColorStop(0, `hsla(${particle.hue}, 80%, 65%, ${pulseOpacity})`);
+                gradient.addColorStop(0.4, `hsla(${particle.hue}, 70%, 55%, ${pulseOpacity * 0.6})`);
+                gradient.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, pulseSize * 4, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = `hsla(${particle.hue}, 90%, 70%, ${pulseOpacity})`;
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, pulseSize, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            });
+            
+            this.animationFrameId = requestAnimationFrame(animate);
+        };
+        
+        animate();
+    }
+
+    initMainAnimations() {
+        const mainContent = document.querySelector('.main-content');
+        const card = document.querySelector('.content-card');
+        const cardGlow = document.querySelector('.card-glow');
+        
+        if (mainContent) {
+            mainContent.classList.add('loaded');
+        }
+        
+        if (card) {
+            setTimeout(() => {
+                if (cardGlow) {
+                    cardGlow.style.opacity = '0.3';
+                    setTimeout(() => {
+                        cardGlow.style.opacity = '0';
+                    }, 1000);
+                }
+            }, 500);
+        }
+        
+        this.initProgressAnimation();
+    }
+
+    initProgressAnimation() {
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        
+        if (!progressFill || !progressPercent) return;
+        
+        let progress = 0;
+        const targetProgress = Math.random() * 25 + 70;
+        
+        const animateProgress = () => {
+            if (progress < targetProgress) {
+                progress += 1.2;
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.floor(progress)}%`;
+                progressFill.style.boxShadow = `0 0 ${15 + (progress * 0.3)}px rgba(255, 140, 0, ${0.4 + (progress * 0.006)}), inset 0 1px 0 rgba(255, 255, 255, 0.3)`;
+                requestAnimationFrame(animateProgress);
+            } else {
+                this.pulseProgressBar();
+            }
+        };
+        
+        setTimeout(() => {
+            if (this.isLoaded) animateProgress();
+        }, 1000);
+    }
+
+    pulseProgressBar() {
+        const progressFill = document.getElementById('progressFill');
+        if (!progressFill) return;
+        
+        let pulseCount = 0;
+        const pulse = () => {
+            if (pulseCount < 3) {
+                progressFill.style.transform = 'scaleY(1.2)';
+                progressFill.style.boxShadow = '0 0 30px rgba(255, 140, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.5)';
+                
+                setTimeout(() => {
+                    progressFill.style.transform = 'scaleY(1)';
+                    progressFill.style.boxShadow = '0 0 15px rgba(255, 140, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+                    pulseCount++;
+                    if (pulseCount < 3) {
+                        setTimeout(pulse, 800);
+                    }
+                }, 200);
+            }
+        };
+        
+        setTimeout(pulse, 500);
+    }
+
+    initQuoteRotation() {
+        const statusText = document.getElementById('statusText');
+        if (!statusText) return;
+        
+        const rotateQuote = () => {
+            statusText.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            statusText.style.opacity = '0';
+            statusText.style.transform = 'translateY(-10px) scale(0.95)';
+            
+            setTimeout(() => {
+                this.currentQuoteIndex = (this.currentQuoteIndex + 1) % this.quotes.length;
+                statusText.textContent = this.quotes[this.currentQuoteIndex];
+                statusText.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                statusText.style.opacity = '1';
+                statusText.style.transform = 'translateY(0) scale(1)';
+                statusText.style.textShadow = '0 0 20px rgba(255, 140, 0, 0.3)';
+                setTimeout(() => {
+                    statusText.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.1)';
+                }, 400);
+            }, 300);
+        };
+        
+        this.quoteRotationInterval = setInterval(rotateQuote, 4000);
+    }
+
+    handleResize() {
+        const canvas = document.getElementById('particles-canvas');
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            this.maxParticles = window.innerWidth > 768 ? 35 : 25;
+            this.createParticles();
+        }
+    }
+
+    goBack() {
+        const card = document.querySelector('.content-card');
+        
+        if (card) {
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px) rotateX(-10deg) scale(0.9)';
+        }
+        
+        setTimeout(() => {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else if (document.referrer) {
+                window.location.href = document.referrer;
+            } else {
+                window.location.href = '/';
+            }
+        }, 500);
+    }
+
+    destroy() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+        if (this.quoteRotationInterval) {
+            clearInterval(this.quoteRotationInterval);
+        }
+    }
+}
+
+/**
+ * Email Subscription Handler - With Firestore Duplicate Check
+ */
+class EmailSubscriptionHandler {
+    constructor() {
+        this.emailInput = null;
+        this.submitBtn = null;
+        this.form = null;
+        this.messageEl = null;
+        this.isSubmitting = false;
+        this.cooldownActive = false;
+        this.cooldownTimer = null;
+        
+        this.init();
+    }
+
+    init() {
+        this.setupElements();
+        this.setupEventListeners();
+    }
+
+    setupElements() {
+        this.emailInput = document.getElementById('emailInput');
+        this.submitBtn = document.getElementById('submitBtn');
+        this.form = document.getElementById('subscriptionForm');
+        this.messageEl = document.getElementById('subscriptionMessage');
+    }
+
+    setupEventListeners() {
+        if (!this.emailInput || !this.submitBtn || !this.form) return;
+
+        this.emailInput.addEventListener('input', () => this.validateEmail());
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleSubmit();
+        });
+        this.emailInput.addEventListener('blur', () => {
+            if (this.emailInput.value.trim()) this.validateEmail();
+        });
+    }
+
+    validateEmail() {
+        const email = this.emailInput.value.trim();
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        this.hideMessage();
+        this.submitBtn.disabled = !isValid || this.cooldownActive;
+        return isValid;
+    }
+
+    showMessage(message, type) {
+        if (!this.messageEl) return;
+        this.messageEl.textContent = message;
+        this.messageEl.className = `subscription-message ${type} show`;
+        
+        setTimeout(() => this.hideMessage(), 4000);
+    }
+
+    hideMessage() {
+        if (!this.messageEl) return;
+        this.messageEl.classList.remove('show');
+        setTimeout(() => {
+            this.messageEl.textContent = '';
+            this.messageEl.className = 'subscription-message';
+        }, 300);
+    }
+
+    startCooldown() {
+        this.cooldownActive = true;
+        this.emailInput.disabled = true;
+        this.submitBtn.disabled = true;
+        
+        if (this.cooldownTimer) clearTimeout(this.cooldownTimer);
+
+        this.cooldownTimer = setTimeout(() => {
+            this.cooldownActive = false;
+            this.emailInput.disabled = false;
+            this.hideMessage();
+            
+            this.submitBtn.classList.remove('submitted');
+            const buttonText = this.submitBtn.querySelector('.button-text');
+            if (buttonText) buttonText.textContent = 'Subscribe for future updates';
+            
+            this.validateEmail();
+            this.cooldownTimer = null;
+        }, 5000);
+    }
+
+    async handleSubmit() {
+        if (this.cooldownActive) {
+            this.showMessage('Please wait a few seconds before submitting another email.', 'error');
+            return;
+        }
+
+        if (!this.validateEmail()) {
+            this.showMessage('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        if (this.isSubmitting) {
+            this.showMessage('Please wait...', 'error');
+            return;
+        }
+
+        const email = this.emailInput.value.trim().toLowerCase();
+
+        if (!window.firebaseDb) {
+            this.showMessage('Firebase not initialized. Please try again.', 'error');
+            return;
+        }
+
+        this.isSubmitting = true;
+        this.submitBtn.disabled = true;
+        this.hideMessage();
+
+        try {
+            const { collection, addDoc, Timestamp } = window.firebaseCollections;
+            const db = window.firebaseDb;
+
+            const { getDocs, query, where } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+
+            const subscribersRef = collection(db, 'subscribers');
+            const q = query(subscribersRef, where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                console.log('⚠️ Email already exists:', email);
+                
+                // CHANGED: Update button state BEFORE showing message
+                this.submitBtn.classList.add('submitted');
+                const buttonText = this.submitBtn.querySelector('.button-text');
+                if (buttonText) buttonText.textContent = 'Submitted';
+                
+                this.showMessage("You're already subscribed!", 'success');
+                this.emailInput.value = '';
+                this.isSubmitting = false;
+                this.startCooldown();
+                return;
+            }
+
+            const docRef = await addDoc(collection(db, 'subscribers'), {
+                email: email,
+                createdAt: Timestamp.now()
+            });
+
+            console.log('✅ Document written with ID:', docRef.id);
+            
+            this.submitBtn.classList.add('submitted');
+            const buttonText = this.submitBtn.querySelector('.button-text');
+            if (buttonText) buttonText.textContent = 'Submitted';
+            
+            this.showMessage('Successfully subscribed!', 'success');
+            this.emailInput.value = '';
+            this.isSubmitting = false;
+            this.startCooldown();
+
+        } catch (error) {
+            console.error('❌ Error:', error.code, error.message);
+            
+            if (error.code === 'permission-denied') {
+                this.showMessage('Permission denied. Please contact support.', 'error');
+            } else {
+                this.showMessage('Something went wrong. Please try again.', 'error');
+            }
+            
+            this.isSubmitting = false;
+            setTimeout(() => {
+                if (this.validateEmail()) this.submitBtn.disabled = false;
+            }, 1000);
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const app = new SimplifiedApp();
+    window.SimplifiedApp = app;
+});
+
+new EmailSubscriptionHandler();

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-FRSCNMCS94"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-FRSCNMCS94");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Work in Progress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/work-in-progress.css" />
+    <script src="/assets/js/work-in-progress.js" defer="defer"></script>
+
+
+</head>
+  <body>
+    <div id="loader" class="loader active">
+      <div class="loader-content">
+        <div class="loader-title">WORK IN PROGRESS</div>
+        <div class="loader-progress">
+          <div class="loader-fill"></div>
+          <div class="loader-glow"></div>
+        </div>
+        <div class="loader-percentage">0%</div>
+      </div>
+    </div>
+
+    <div class="particle-container">
+      <canvas id="particles-canvas"></canvas>
+    </div>
+    <main class="main-content">
+      <div class="content-container">
+        <div class="content-card">
+          <div class="card-glow"></div>
+          <h1 class="main-title">
+            <span class="title-line">WORK IN</span>
+            <span class="title-line">PROGRESS</span>
+          </h1>
+
+
+
+
+        </div>
+      </div>
+
+      <!-- Email Subscription Section -->
+      <section class="email-subscription-section">
+        <form class="subscription-form" id="subscriptionForm" novalidate>
+          <input
+            type="email"
+            id="emailInput"
+            class="subscription-input"
+            placeholder="Enter email"
+            autocomplete="email"
+            aria-label="Email address"
+            required
+          />
+          <button
+            type="submit"
+            id="submitBtn"
+            class="subscription-button"
+            disabled
+          >
+            <span class="button-text">Subscribe for future updates</span>
+          </button>
+        </form>
+        <div class="subscription-message" id="subscriptionMessage"></div>
+      </section>
+    </main>
+
+    <div class="theme-selector hidden" id="themeSelector"></div>
+
+    <!--Firebase SDK-->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        Timestamp,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCeC379xwkSFwj3X7sLTT7iIadLoxDKWb4",
+        authDomain: "niedge-subscribe.firebaseapp.com",
+        projectId: "niedge-subscribe",
+        storageBucket: "niedge-subscribe.firebasestorage.app",
+        messagingSenderId: "612147945066",
+        appId: "1:612147945066:web:17d693a5f631eb5d107413",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      window.firebaseDb = db;
+      window.firebaseCollections = { collection, addDoc, Timestamp };
+
+      console.log("Firebase initialized successfully, SUII !!");
+    </script>
+  </body>
+</html>

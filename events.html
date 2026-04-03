@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - NIEdge </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/events.css">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            <div class="shape shape-6"></div>
+        </div>
+        <div class="tech-grid"></div>
+    </div>
+
+    <nav class="navbar" style="will-change: transform">
+  <div class="container">
+    <a href="#" class="logo">
+      <img
+        src="/assets/images/LOGO.jpg"
+        class="logo-image"
+        alt="NIEdge Logo"
+      />
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#home">HOME</a>
+      <a href="/work-in-progress.html">EVENTS</a>
+      <a href="/index.html#academics">ACADEMICS</a>
+      <a href="/index.html#skills-new">SKILLS</a>
+      <a href="/form.html">FEEDBACK</a>
+      <a href="/index.html#about">ABOUT US</a>
+    </div>
+    <div class="hamburger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </div>
+</nav>
+
+    <div class="events-page-container">
+        <div class="events-left-section">
+            <div class="featured-event-wrapper" id="featured-event"></div>
+            <div class="upcoming-events-wrapper">
+                <h2 class="section-heading">Upcoming Events</h2>
+                <div class="upcoming-events-list" id="upcoming-events"></div>
+            </div>
+        </div>
+
+        <div class="events-right-section">
+            <div class="calendar-widget">
+                <div class="calendar-header">
+                    <h3>EVENT CALENDAR</h3>
+                    <div class="calendar-controls">
+                        <button class="calendar-nav-btn" id="prev-month">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="calendar-date-display">
+                            <select class="month-select" id="month-select"></select>
+                            <select class="year-select" id="year-select"></select>
+                        </div>
+                        <button class="calendar-nav-btn" id="next-month">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+                <div class="calendar-legend" id="calendar-legend"></div>
+            </div>
+
+            <div class="explore-clubs-widget">
+                <h3>Explore Clubs</h3>
+                <div class="clubs-grid" id="clubs-grid"></div>
+            </div>
+
+            <div class="past-events-widget">
+                <h3>Past Events</h3>
+                <div class="past-events-grid" id="past-events-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="mobile-calendar-btn" id="mobile-calendar-btn">
+        <i class="fas fa-calendar-alt"></i>
+    </button>
+
+    <div class="calendar-modal" id="calendar-modal">
+        <div class="calendar-modal-content">
+            <div class="calendar-modal-header">
+                <h3>Event Calendar</h3>
+                <button class="calendar-close-btn" id="calendar-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="calendar-modal-controls">
+                <button class="calendar-nav-btn" id="modal-prev-month">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="calendar-date-display">
+                    <select class="month-select" id="modal-month-select"></select>
+                    <select class="year-select" id="modal-year-select"></select>
+                </div>
+                <button class="calendar-nav-btn" id="modal-next-month">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="calendar-grid" id="modal-calendar-grid"></div>
+            <div class="calendar-legend" id="modal-calendar-legend"></div>
+        </div>
+    </div>
+
+    <footer id="fo1">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>NIEdge</h3>
+                    <p>Your companion for cracking exams and building future-ready skills — all in one place.</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/zyxdge/" class="social-icon" target="_blank" rel="noopener" aria-label="NIEdge Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://chat.whatsapp.com/DNRXf3b7YBRITpSaOSwKMz" target="_blank" rel="noopener" class="social-icon" aria-label="NIEdge Whatsapp Community"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/index.html#home">Home</a></li>
+                        <li><a href="/events.html">Events</a></li>
+                        <li><a href="/index.html#academics">Academic</a></li>
+                        <li><a href="/index.html#skills-new">Skills</a></li>
+                        <li><a href="/index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="connect-with-us">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="mailto:niedge.nie@gmail.com"><i class="fas fa-envelope"></i>niedge.nie@gmail.com</a></li>
+                        <li><a href="https://www.instagram.com/zyxdge/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i>@zyxdge</a></li>
+                        <li><a href="https://chat.whatsapp.com/DNRXf3b7YBRITpSaOSwKMz" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>NIEdge Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>NIEdge © 2025. ALL RIGHTS RESERVED <br>(We have no idea what that means but it sounds cool)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/events.js"></script>
+</body>
+</html>

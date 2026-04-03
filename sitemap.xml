@@ -1,0 +1,48 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://niedge.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Year Hubs -->
+  <url>
+    <loc>https://niedge.vercel.app/subject-list.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://niedge.vercel.app/2ndYear/subject-list-2.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 1st Year Subjects -->
+  <url><loc>https://niedge.vercel.app/notes-qb-page_caed.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_c.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_chem.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_cyber.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_elec.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_ece.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_m1.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_m2.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_mech.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_phy.html</loc></url>
+  <url><loc>https://niedge.vercel.app/notes-qb-page_python.html</loc></url>
+
+  <!-- 2nd Year Subjects -->
+  <url><loc>https://niedge.vercel.app/2ndYear/notes-qb-page/notes-qb-page-ddco.html</loc></url>
+  <url><loc>https://niedge.vercel.app/2ndYear/notes-qb-page/notes-qb-page-dsa.html</loc></url>
+  <url><loc>https://niedge.vercel.app/2ndYear/notes-qb-page/notes-qb-page-M3.html</loc></url>
+  <url><loc>https://niedge.vercel.app/2ndYear/notes-qb-page/notes-qb-page-oops.html</loc></url>
+  <url><loc>https://niedge.vercel.app/2ndYear/notes-qb-page/notes-qb-page-os.html</loc></url>
+
+  <!-- Skills -->
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-c.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-cpp.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-java.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-js.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-python.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-html.html</loc></url>
+  <url><loc>https://niedge.vercel.app/skills/language-page/ques-proj-page-css.html</loc></url>
+
+</urlset>

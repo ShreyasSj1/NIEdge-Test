@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Feedback Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #fbb040;
+        --primary-dark: #f9ed32;
+        --secondary: #4a5568;
+        --light: #f7fafc;
+        --accent: #ff6b6b;
+        --success: #22c55e;
+        --success-light: #4ade80;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        line-height: 1.5;
+      }
+      .form-container {
+        max-width: 640px;
+        width: 100%;
+        background: white;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        will-change: transform, box-shadow;
+      }
+      .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+      .form-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 2rem;
+        color: #303030;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .logo {
+        transform: scale(1.2);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: white;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+        transition: transform 0.2s ease-in-out;
+      }
+      .logo:hover {
+        transform: scale(1.3);
+      }
+      .logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      .header-content {
+        flex: 1;
+      }
+      .header-content h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+      .header-content p {
+        font-size: 1rem;
+        opacity: 0.9;
+        text-align: left;
+      }
+      .form-body {
+        padding: 2rem;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--secondary);
+        transition: all 0.3s ease;
+      }
+      .form-control {
+        width: 100%;
+        padding: 0.875rem 1.25rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        background-color: var(--light);
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(251, 176, 64, 0.2);
+        transform: translateY(-2px);
+      }
+      .form-control:hover {
+        border-color: #cbd5e0;
+        transform: translateY(-2px);
+      }
+      textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .btn-submit {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: #2d3748;
+        border: none;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(251, 176, 64, 0.2);
+        position: relative;
+        overflow: hidden;
+        will-change: transform, box-shadow;
+      }
+      .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 14px rgba(251, 176, 64, 0.3);
+      }
+      .btn-submit:active {
+        transform: translateY(1px);
+      }
+      .btn-submit.loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+      .btn-submit.loading::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .confirmation-message {
+        display: none;
+        background: linear-gradient(
+          135deg,
+          var(--success-light) 0%,
+          var(--success) 100%
+        );
+        color: white;
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+        box-shadow: 0 4px 6px rgba(74, 222, 128, 0.2);
+      }
+      .confirmation-message i {
+        margin-right: 0.5rem;
+      }
+      .error-message {
+        background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+        color: white;
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+        box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+      }
+      .error-message i {
+        margin-right: 0.5rem;
+      }
+      .hidden {
+        display: none !important;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .form-group.animate {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .form-group.animate:not(.show) {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .form-group.animate.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      ::placeholder {
+        opacity: 0.65;
+      }
+      @media (max-width: 640px) {
+        .form-container {
+          border-radius: 1rem;
+        }
+        .form-header {
+          padding: 1.5rem;
+        }
+        .form-body {
+          padding: 1.5rem;
+        }
+        .btn-submit {
+          padding: 0.875rem;
+        }
+      }
+      @media (max-width: 400px) {
+        .form-header h1 {
+          font-size: 1.5rem;
+        }
+        .form-header p {
+          font-size: 0.875rem;
+        }
+        .form-body {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <div class="form-header">
+        <div class="logo">
+          <img src="assets/images/logo-icon.jpg" alt="NIEdge Logo" />
+        </div>
+        <div class="header-content">
+          <h1>Student Feedback</h1>
+          <p>
+            Your feedback helps us improve, so kindly fill the form below to
+            make <strong><em>NIEdge</em></strong> better
+          </p>
+        </div>
+      </div>
+
+      <div class="form-body">
+        <!-- Confirmation message box, initially hidden -->
+        <div id="confirmation-message" class="confirmation-message">
+          <i class="fas fa-check-circle"></i> Thank you! Your feedback has been
+          submitted successfully.
+        </div>
+
+        <!-- Error message box, initially hidden -->
+        <div id="error-message" class="error-message hidden">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="error-text"
+            >Failed to submit feedback. Please try again.</span
+          >
+        </div>
+
+        <form id="feedback-form" class="space-y-6">
+          <!-- Name Input -->
+          <div class="form-group animate">
+            <label for="name"
+              ><i class="fas fa-user text-yellow-600"></i> Full Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="form-control"
+              placeholder="e.g., Shreyas S J"
+            />
+          </div>
+
+          <!-- USN Input -->
+          <div class="form-group animate">
+            <label for="usn"
+              ><i class="fas fa-id-card text-yellow-600"></i> USN (University
+              Seat Number)</label
+            >
+            <input
+              type="text"
+              id="usn"
+              name="usn"
+              required
+              class="form-control"
+              placeholder="e.g., 2024IS111"
+            />
+          </div>
+
+          <!-- Semester Dropdown -->
+          <div class="form-group animate">
+            <label for="semester"
+              ><i class="fas fa-graduation-cap text-yellow-600"></i>
+              Semester</label
+            >
+            <select id="semester" name="semester" required class="form-control">
+              <option value="" disabled selected>Select a semester</option>
+              <option value="1">1st Semester</option>
+              <option value="2">2nd Semester</option>
+              <option value="3">3rd Semester</option>
+              <option value="4">4th Semester</option>
+              <option value="5">5th Semester</option>
+              <option value="6">6th Semester</option>
+              <option value="7">7th Semester</option>
+              <option value="8">8th Semester</option>
+            </select>
+          </div>
+
+          <!-- Feedback Topic Dropdown -->
+          <div class="form-group animate">
+            <label for="topic"
+              ><i class="fas fa-comments text-yellow-600"></i> Feedback
+              Topic</label
+            >
+            <select id="topic" name="topic" required class="form-control">
+              <option value="" disabled selected>
+                Select a feedback topic
+              </option>
+              <option value="content/resources">Content/Resources</option>
+              <option value="website_ui/ux">Website UI/UX</option>
+              <option value="improvements">
+                Any Improvements
+              </option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Feedback Message Textarea -->
+          <div class="form-group animate">
+            <label for="message"
+              ><i class="fas fa-edit text-yellow-600"></i> Your Feedback</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              required
+              class="form-control"
+              placeholder="Please provide your detailed feedback here..."
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group animate">
+            <button type="submit" class="btn-submit" id="submit-btn">
+              <i class="fas fa-paper-plane"></i> Submit Feedback
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getFirestore,
+        addDoc,
+        collection,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+      // Your Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyDe-GUOuMTceE-fb5NVqYWVQwTO90hGyRE",
+        authDomain: "niedge-feedback.firebaseapp.com",
+        projectId: "niedge-feedback",
+        storageBucket: "niedge-feedback.firebasestorage.app",
+        messagingSenderId: "453689723767",
+        appId: "1:453689723767:web:a9c8b92641d9077b886f72",
+      };
+
+      // Initialize Firebase
+      let db;
+      try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        console.log("✅ Firebase initialized successfully");
+      } catch (error) {
+        console.error("❌ Firebase initialization error:", error);
+      }
+
+      // Wait for DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Ensure form is visible immediately
+        const formGroups = document.querySelectorAll(".form-group.animate");
+
+        // Add show class immediately as fallback
+        formGroups.forEach((group) => {
+          group.classList.add("show");
+        });
+
+        // Then do the staggered animation
+        formGroups.forEach((group, index) => {
+          setTimeout(() => {
+            group.classList.add("show");
+          }, 100 + index * 100);
+        });
+
+        // Initialize form submission
+        const form = document.getElementById("feedback-form");
+        const confirmationMessage = document.getElementById(
+          "confirmation-message"
+        );
+        const errorMessage = document.getElementById("error-message");
+        const submitButton = document.getElementById("submit-btn");
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Basic client-side spam protection (2 mins)
+          const lastSubmit = localStorage.getItem("lastFeedbackTime");
+
+          if (lastSubmit && Date.now() - lastSubmit < 120000) {
+            showError("Please wait for 2 minutes before submitting again.");
+            return;
+          }
+
+          // Save submit time
+          localStorage.setItem("lastFeedbackTime", Date.now());
+
+          console.log("Form submitted!");
+
+          // Validate form
+          if (!validateForm()) {
+            showError("Please fill all required fields correctly.");
+            return;
+          }
+
+          // Show loading state
+          submitButton.classList.add("loading");
+          submitButton.disabled = true;
+
+          try {
+            if (!db) {
+              throw new Error("Firebase not initialized");
+            }
+
+            // Get form data
+            const formData = new FormData(form);
+            const data = {
+              name: formData.get("name"),
+              usn: formData.get("usn"),
+              semester: formData.get("semester"),
+              topic: formData.get("topic"),
+              message: formData.get("message"),
+              timestamp: new Date().toISOString(),
+              createdAt: serverTimestamp(),
+            };
+
+            console.log("Submitting data:", data);
+
+            // Submit to Firestore
+            await addDoc(collection(db, "feedbacks"), data);
+
+            console.log("✅ Data submitted successfully");
+
+            // Show success message
+            hideError();
+            showSuccess();
+            form.reset();
+          } catch (error) {
+            console.error("❌ Submission error:", error);
+            showError("Failed to submit feedback. Please try again.");
+          } finally {
+            // Remove loading state
+            submitButton.classList.remove("loading");
+            submitButton.disabled = false;
+          }
+        });
+
+        function validateForm() {
+          let isValid = true;
+          const requiredFields = form.querySelectorAll(
+            "input[required], select[required], textarea[required]"
+          );
+
+          requiredFields.forEach((field) => {
+            if (!field.value.trim()) {
+              field.style.borderColor = "var(--accent)";
+              isValid = false;
+            } else {
+              field.style.borderColor = "";
+            }
+          });
+
+          return isValid;
+        }
+
+        function showSuccess() {
+          confirmationMessage.style.display = "block";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          // Hide after 4 seconds
+          setTimeout(() => {
+            confirmationMessage.style.display = "none";
+          }, 4000);
+        }
+
+        function showError(message) {
+          const errorText = document.getElementById("error-text");
+          errorText.textContent = message;
+          errorMessage.classList.remove("hidden");
+          errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        function hideError() {
+          errorMessage.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

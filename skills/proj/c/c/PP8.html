@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP 8 - Projects Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f3f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #f0f0f0;
+            transform: translateX(-2px);
+        }
+
+        .back-arrow {
+            width: 16px;
+            height: 16px;
+            border-left: 3px solid #666;
+            border-bottom: 3px solid #666;
+            transform: rotate(45deg);
+            margin-left: 3px;
+        }
+
+        .level-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .level-title h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #ff9500;
+            margin-bottom: 10px;
+        }
+
+        .level-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #ff9500;
+            margin: 0 auto;
+        }
+
+        .question-container {
+            background-color: white;
+            border: 3px solid #333;
+            border-radius: 14px;
+            padding: 32px;
+            margin-bottom: 80px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .question-image:hover {
+            transform: scale(1.02);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 180px;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .solution-btn {
+            background-color: #ff9500;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+        }
+
+        .solution-btn:hover {
+            background-color: #e8850a;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 149, 0, 0.4);
+        }
+
+        .completed-btn {
+            background-color: #007aff;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        .completed-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .back-button {
+                width: 38px;
+                height: 38px;
+            }
+
+            .back-arrow {
+                width: 14px;
+                height: 14px;
+            }
+
+            .level-title h1 {
+                font-size: 2.3rem;
+            }
+
+            .question-container {
+                padding: 28px 22px;
+                margin-bottom: 60px;
+                max-width: 90%;
+            }
+
+            .question-text {
+                font-size: 1rem;
+            }
+
+            .button-container {
+                gap: 30px;
+            }
+
+            .btn {
+                padding: 14px 28px;
+                font-size: 0.95rem;
+                width: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                width: 35px;
+                height: 35px;
+            }
+
+            .back-arrow {
+                width: 12px;
+                height: 12px;
+            }
+
+            .level-title h1 {
+                font-size: 2rem;
+            }
+
+            .question-container {
+                padding: 24px 18px;
+                max-width: 95%;
+            }
+
+            .question-text {
+                font-size: 0.95rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 220px;
+                padding: 13px 24px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .back-button {
+                width: 32px;
+                height: 32px;
+            }
+
+            .back-arrow {
+                width: 10px;
+                height: 10px;
+                border-left: 2px solid #666;
+                border-bottom: 2px solid #666;
+            }
+
+            .level-title h1 {
+                font-size: 1.7rem;
+            }
+
+            .question-container {
+                padding: 20px 15px;
+                max-width: 100%;
+            }
+
+            .question-text {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Large screen adjustments */
+        @media (min-width: 1400px) {
+            .back-button {
+                width: 48px;
+                height: 48px;
+            }
+
+            .back-arrow {
+                width: 18px;
+                height: 18px;
+            }
+
+            .level-title h1 {
+                font-size: 3.5rem;
+            }
+
+            .question-container {
+                padding: 40px;
+                max-width: 900px;
+            }
+
+            .question-text {
+                font-size: 1.3rem;
+            }
+
+            .button-container {
+                gap: 50px;
+            }
+
+            .btn {
+                padding: 18px 36px;
+                font-size: 1.1rem;
+                width: 200px;
+            }
+        }
+
+        /* Extra responsive breakpoints */
+        @media (max-width: 360px) {
+            .level-title h1 {
+                font-size: 1.85rem;
+            }
+            
+            .question-text {
+                font-size: 0.92rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .back-button {
+                width: 40px;
+                height: 40px;
+            }
+
+            .level-title h1 {
+                font-size: 2.6rem;
+            }
+
+            .question-container {
+                padding: 30px;
+                max-width: 85%;
+            }
+
+            .question-text {
+                font-size: 1.05rem;
+            }
+
+            .button-container {
+                gap: 35px;
+            }
+
+            .btn {
+                width: 170px;
+                padding: 15px 30px;
+                font-size: 0.98rem;
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1399px) {
+            .back-button {
+                width: 44px;
+                height: 44px;
+            }
+
+            .level-title h1 {
+                font-size: 3.1rem;
+            }
+
+            .question-container {
+                padding: 36px;
+                max-width: 850px;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .button-container {
+                gap: 45px;
+            }
+
+            .btn {
+                width: 190px;
+                padding: 17px 34px;
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/navbar.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <div class="back-button" onclick="goBack()">
+            <div class="back-arrow"></div>
+        </div>
+
+        <!-- Level Title -->
+        <div class="level-title">
+            <h1>PP 8</h1>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container">
+            <p class="question-text"><strong>Age Calculator</strong></p>
+            <img src="/images-c/PP8.png" alt="Dice Rolling Simulator Project" class="question-image">
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-container">
+            <a href="#solution" class="btn solution-btn">Solution</a>
+            <a href="#completed" class="btn completed-btn">Mark Completed</a>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // You can customize this function based on your routing needs
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Fallback URL if no history
+                window.location.href = '/';
+            }
+        }
+
+        // Add smooth scrolling for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add touch-friendly interactions
+            const buttons = document.querySelectorAll('.btn, .back-button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+
+        // Handle orientation change for mobile devices
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 100);
+        });
+    </script>
+</body>
+</html>

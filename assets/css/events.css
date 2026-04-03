@@ -1,0 +1,732 @@
+.events-page-container {
+    max-width: 1400px;
+    margin: 120px auto 0;
+    padding: 40px 20px 80px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.events-left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.featured-event-wrapper {
+    width: 100%;
+}
+
+.featured-event-card {
+    background: var(--white);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.featured-event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(255, 193, 7, 0.3);
+    border-color: var(--primary-color);
+}
+
+.featured-event-image {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+}
+
+.featured-event-content {
+    padding: 30px;
+    position: relative;
+}
+
+.featured-badge {
+    position: absolute;
+    top: -25px;
+    left: 30px;
+    background: var(--gradient-1);
+    color: var(--dark-color);
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: var(--shadow-light);
+}
+
+.featured-event-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 20px 0 15px;
+    line-height: 1.2;
+}
+
+.featured-event-date {
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.featured-event-description {
+    font-size: 1rem;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.featured-event-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 40px;
+    background: var(--dark-color);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.featured-event-btn:hover {
+    background: var(--primary-dark);
+    transform: translateX(5px);
+}
+
+.upcoming-events-wrapper {
+    width: 100%;
+}
+
+.section-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-1);
+    border-radius: 2px;
+}
+
+.upcoming-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.upcoming-event-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.upcoming-event-card:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.upcoming-event-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.upcoming-event-content {
+    flex: 1;
+}
+
+.upcoming-event-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.upcoming-event-date {
+    font-size: 0.95rem;
+    color: var(--gray);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.upcoming-event-description {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.events-right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.calendar-widget,
+.explore-clubs-widget,
+.past-events-widget {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow-light);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.calendar-widget:hover,
+.explore-clubs-widget:hover,
+.past-events-widget:hover {
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.calendar-widget h3,
+.explore-clubs-widget h3,
+.past-events-widget h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calendar-header {
+    margin-bottom: 20px;
+}
+
+.calendar-controls,
+.calendar-modal-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.calendar-date-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.month-select,
+.year-select {
+    padding: 8px 12px;
+    border: 2px solid var(--light-color);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.month-select:hover,
+.year-select:hover,
+.month-select:focus,
+.year-select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.calendar-nav-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--light-color);
+    color: var(--dark-color);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.calendar-nav-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gray);
+    padding: 8px 0;
+    text-transform: uppercase;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    background: var(--light-color);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    background: var(--primary-light);
+    transform: scale(1.05);
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.calendar-day.empty:hover {
+    transform: none;
+}
+
+.calendar-day.today {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    font-weight: 800;
+    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-color);
+}
+
+.calendar-day.event-day {
+    background: var(--gradient-1);
+    color: var(--dark-color);
+    font-weight: 800;
+    position: relative;
+}
+
+.calendar-day.event-day::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--dark-color);
+    border-radius: 50%;
+}
+
+.calendar-day.today.event-day {
+    background: var(--primary-color);
+}
+
+.calendar-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 15px;
+    border-top: 2px solid var(--light-color);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--gray);
+    padding: 8px 12px;
+    background: var(--light-color);
+    border-radius: 8px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    background: var(--gradient-1);
+}
+
+.clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.club-card {
+    aspect-ratio: 1;
+    background: var(--light-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.club-card:hover {
+    background: var(--primary-light);
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+}
+
+.past-events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.past-event-card {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.past-event-card:hover {
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+}
+
+.past-event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-events-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+.mobile-calendar-btn {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-1);
+    color: var(--dark-color);
+    border: none;
+    box-shadow: 0 4px 16px rgba(255, 193, 7, 0.4);
+    cursor: pointer;
+    font-size: 1.4rem;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.mobile-calendar-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+}
+
+.calendar-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.calendar-modal.active {
+    display: flex;
+}
+
+.calendar-modal-content {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.calendar-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.calendar-modal-header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calendar-close-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--light-color);
+    color: var(--dark-color);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.calendar-close-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+@media (max-width: 1200px) {
+    .events-page-container {
+        grid-template-columns: 1fr 350px;
+        gap: 35px;
+    }
+
+    .featured-event-image {
+        height: 340px;
+    }
+
+    .featured-event-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 968px) {
+    .events-page-container {
+        grid-template-columns: 1fr;
+        margin-top: 100px;
+        padding: 30px 20px 60px;
+        gap: 40px;
+    }
+
+    .events-left-section {
+        order: 1;
+    }
+
+    .featured-event-wrapper {
+        order: 1;
+    }
+
+    .upcoming-events-wrapper {
+        order: 2;
+    }
+
+    .events-right-section {
+        order: 2;
+        display: contents;
+    }
+
+    .explore-clubs-widget {
+        order: 3;
+    }
+
+    .past-events-widget {
+        order: 4;
+    }
+
+    .calendar-widget {
+        display: none;
+    }
+
+    .mobile-calendar-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .featured-event-image {
+        height: 320px;
+    }
+
+    .featured-event-title {
+        font-size: 2rem;
+    }
+
+    .featured-event-content {
+        padding: 30px 25px;
+    }
+
+    .upcoming-event-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .upcoming-event-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .explore-clubs-widget,
+    .past-events-widget {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .events-page-container {
+        padding: 20px 15px 50px;
+    }
+
+    .featured-event-image {
+        height: 280px;
+    }
+
+    .featured-event-title {
+        font-size: 1.8rem;
+    }
+
+    .featured-event-content {
+        padding: 25px 20px;
+    }
+
+    .featured-badge {
+        left: 20px;
+        padding: 8px 20px;
+        font-size: 0.75rem;
+    }
+
+    .featured-event-btn {
+        padding: 14px 32px;
+        font-size: 0.9rem;
+    }
+
+    .section-heading {
+        font-size: 1.6rem;
+    }
+
+    .upcoming-event-title {
+        font-size: 1.2rem;
+    }
+
+    .calendar-grid {
+        gap: 6px;
+    }
+
+    .calendar-day {
+        font-size: 0.85rem;
+    }
+
+    .clubs-grid,
+    .past-events-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .events-page-container {
+        margin-top: 90px;
+        padding: 15px 10px 40px;
+    }
+
+    .mobile-calendar-btn {
+        width: 52px;
+        height: 52px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.3rem;
+    }
+
+    .featured-event-image {
+        height: 240px;
+    }
+
+    .featured-event-title {
+        font-size: 1.5rem;
+    }
+
+    .featured-event-content {
+        padding: 20px 15px;
+    }
+
+    .featured-badge {
+        font-size: 0.7rem;
+        padding: 6px 16px;
+    }
+
+    .section-heading {
+        font-size: 1.4rem;
+    }
+
+    .upcoming-event-card {
+        padding: 20px;
+    }
+
+    .calendar-day-header {
+        font-size: 0.7rem;
+        padding: 6px 0;
+    }
+
+    .calendar-day {
+        font-size: 0.8rem;
+    }
+
+    .legend-item {
+        font-size: 0.8rem;
+    }
+
+    .calendar-modal-content {
+        padding: 20px;
+    }
+}
+
+.logo:hover {
+    transform: scale(0.918);
+    color: var(--primary-color);
+}
