@@ -155,6 +155,7 @@ function initCounters() {
   const statsSection = document.querySelector(".skills");
   const counters = document.querySelectorAll(".counter");
   let hasAnimated = false;
+  let observer = null;
 
   if (!statsSection || !counters.length) {
     return;
@@ -171,25 +172,56 @@ function initCounters() {
     });
   }
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) {
-        return;
-      }
-
-      runCounters();
+  function cleanupObserver() {
+    if (observer) {
       observer.unobserve(statsSection);
+      observer.disconnect();
+      observer = null;
+    }
+  }
+
+  function maybeRunCounters() {
+    if (hasAnimated) {
+      cleanupObserver();
+      return;
+    }
+
+    const rect = statsSection.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const sectionVisible = rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.2;
+
+    if (sectionVisible) {
+      runCounters();
+      cleanupObserver();
+    }
+  }
+
+  observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        runCounters();
+        cleanupObserver();
+      }
     });
   }, {
-    threshold: 0.2,
-    rootMargin: "0px 0px -10% 0px"
+    threshold: 0.1,
+    rootMargin: "0px 0px -5% 0px"
   });
 
   observer.observe(statsSection);
 
+  window.addEventListener("load", maybeRunCounters, { once: true });
+  window.addEventListener("pageshow", maybeRunCounters, { once: true });
+  window.addEventListener("scroll", maybeRunCounters, { passive: true });
+  window.addEventListener("resize", maybeRunCounters, { passive: true });
+
+  requestAnimationFrame(maybeRunCounters);
+  setTimeout(maybeRunCounters, 250);
+  setTimeout(maybeRunCounters, 1000);
+
   if (window.scrollY + window.innerHeight >= statsSection.offsetTop + 40) {
     runCounters();
-    observer.unobserve(statsSection);
+    cleanupObserver();
   }
 }
 
