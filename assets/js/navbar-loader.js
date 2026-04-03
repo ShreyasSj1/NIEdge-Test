@@ -2,6 +2,19 @@
   "use strict";
 
   const PLACEHOLDER_HREF = "/work-in-progress.html";
+  const NAVBAR_LOGO_SRC = "/assets/images/LOGO.jpg";
+
+  function preloadNavbarLogo() {
+    if (document.head.querySelector('link[rel="preload"][href="' + NAVBAR_LOGO_SRC + '"]')) {
+      return;
+    }
+
+    const preload = document.createElement("link");
+    preload.rel = "preload";
+    preload.as = "image";
+    preload.href = NAVBAR_LOGO_SRC;
+    document.head.appendChild(preload);
+  }
 
   function injectNavbar(html) {
     const placeholder = document.getElementById("navbar-placeholder");
@@ -118,6 +131,8 @@
   function annotateUnavailableLinks() {
     document.querySelectorAll('a[href$="work-in-progress.html"], a[href="/work-in-progress.html"]').forEach(addUnavailableBadge);
   }
+
+  preloadNavbarLogo();
 
   fetch("/navbar.html")
     .then(function (response) {
