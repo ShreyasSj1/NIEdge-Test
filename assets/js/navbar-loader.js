@@ -28,6 +28,62 @@
     });
   }
 
+  function initMobileMenu() {
+    const navbar = document.querySelector(".navbar");
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!navbar || !hamburger || !navLinks || hamburger.dataset.menuBound === "true") {
+      return;
+    }
+
+    hamburger.dataset.menuBound = "true";
+
+    function closeMenu() {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("active");
+      document.body.classList.remove("menu-open");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+    function toggleMenu(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      const isOpen = hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active", isOpen);
+      document.body.classList.toggle("menu-open", isOpen);
+      hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    }
+
+    hamburger.setAttribute("aria-expanded", "false");
+
+    hamburger.addEventListener("click", toggleMenu);
+    hamburger.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        toggleMenu(event);
+      }
+    });
+
+    navLinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!navbar.contains(event.target) && navLinks.classList.contains("active")) {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768) {
+        closeMenu();
+      }
+    });
+  }
+
   function addUnavailableBadge(link) {
     if (link.dataset.statusEnhanced === "true") {
       return;
@@ -65,6 +121,7 @@
     .then(function (html) {
       injectNavbar(html);
       markCurrentPage();
+      initMobileMenu();
       annotateUnavailableLinks();
       document.dispatchEvent(new Event("navbarLoaded"));
     })
