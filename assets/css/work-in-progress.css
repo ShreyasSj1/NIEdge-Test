@@ -930,61 +930,71 @@ body::before {
 
 .content-container {
     perspective: 1200px;
+    position: relative;
 }
 
 .content-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--radius-xl);
-    padding: var(--space-3xl);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 248, 239, 0.92) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: 34px;
+    padding: 52px 52px 40px;
     position: relative;
     overflow: hidden;
-    max-width: 650px;
+    max-width: 740px;
     width: 100%;
     box-shadow: 
-        0 20px 60px var(--shadow-primary),
-        0 10px 30px var(--shadow-secondary),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        0 30px 90px rgba(73, 35, 5, 0.28),
+        0 14px 36px rgba(150, 78, 10, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
     transition: all var(--transition-smooth);
     text-align: center;
-    backdrop-filter: blur(20px);
-
+    backdrop-filter: blur(16px);
 }
 
 .content-card:hover {
-    transform: translateY(-2px) rotateX(2deg);
+    transform: translateY(-4px) rotateX(1.5deg);
     box-shadow: 
-        0 30px 80px var(--shadow-primary),
-        0 15px 40px var(--shadow-secondary),
-        0 0 50px var(--glow-orange),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 36px 100px rgba(73, 35, 5, 0.32),
+        0 16px 44px rgba(150, 78, 10, 0.2),
+        0 0 42px rgba(255, 174, 80, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.98);
 }
 
 .card-glow {
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--glow-white) 0%, transparent 70%);
-    opacity: 0;
+    top: -22%;
+    left: -8%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, rgba(255, 214, 153, 0.4) 0%, transparent 72%);
+    opacity: 0.75;
     transition: opacity var(--transition-smooth);
     pointer-events: none;
     animation: cardGlow 4s ease-in-out infinite;
 }
 
+.content-card::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 26px;
+    border: 1px solid rgba(171, 109, 41, 0.08);
+    pointer-events: none;
+}
+
 .main-title {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2.2rem, 6.5vw, 4rem);
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
     font-weight: 900;
     color: var(--text-dark);
-    letter-spacing: 0.15em;
-    margin-bottom: var(--space-xl);
+    letter-spacing: 0.12em;
+    line-height: 0.95;
+    margin-bottom: 28px;
     position: relative;
     z-index: 2;
     text-shadow: 
-        2px 2px 4px var(--shadow-primary),
-        0 0 20px var(--glow-orange);
+        0 8px 18px rgba(80, 43, 11, 0.22),
+        0 0 12px rgba(255, 190, 104, 0.12);
 }
 
 .title-line {
@@ -992,7 +1002,7 @@ body::before {
     opacity: 0;
     transform: translateY(40px) rotateX(45deg);
     animation: titleReveal 0.8s ease-out forwards;
-    background: linear-gradient(135deg, var(--text-dark) 0%, #333 100%);
+    background: linear-gradient(180deg, #5f3718 0%, #311a08 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1161,7 +1171,7 @@ body::before {
     }
 
     .content-card {
-        padding: var(--space-xl);
+        padding: 38px 28px 30px;
     }
 
     .loader-progress {
@@ -1177,11 +1187,12 @@ body::before {
     }
 
     .content-card {
-        padding: var(--space-lg);
+        padding: 30px 20px 24px;
     }
 
     .main-title {
-        font-size: clamp(1.6rem, 5.5vw, 2.8rem);
+        font-size: clamp(1.9rem, 8vw, 3rem);
+        letter-spacing: 0.08em;
     }
 
     .status-text {
@@ -1234,9 +1245,9 @@ body {
 .email-subscription-section {
     position: relative;
     width: 100%;
-    max-width: 520px;
-    margin: 32px auto 0;
-    padding: 0 24px;
+    max-width: 540px;
+    margin: 6px auto 0;
+    padding: 0;
     z-index: 15;
 }
 
@@ -1244,31 +1255,33 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .subscription-input {
     width: 100%;
-    padding: 14px 18px;
-    font-size: 15px;
+    min-height: 64px;
+    padding: 18px 22px;
+    font-size: 1.05rem;
     font-family: 'Montserrat', sans-serif;
-    color: #1a1a1a;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1.5px solid rgba(200, 200, 200, 0.4);
-    border-radius: 10px;
+    color: #4f2e15;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(232, 177, 116, 0.45);
+    border-radius: 18px;
     outline: none;
     transition: all 0.25s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 10px 26px rgba(181, 113, 45, 0.08);
 }
 
 .subscription-input::placeholder {
-    color: #999;
-    opacity: 0.8;
+    color: rgba(98, 62, 31, 0.5);
+    opacity: 1;
 }
 
 .subscription-input:focus {
-    border-color: rgba(100, 100, 255, 0.5);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 0 3px rgba(100, 100, 255, 0.1);
+    border-color: rgba(255, 158, 53, 0.82);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 0 0 4px rgba(255, 183, 97, 0.18), 0 14px 30px rgba(181, 113, 45, 0.14);
 }
 
 .subscription-input:invalid:not(:placeholder-shown) {
@@ -1277,23 +1290,25 @@ body {
 
 .subscription-button {
     width: 100%;
-    padding: 14px 24px;
-    font-size: 15px;
+    min-height: 62px;
+    padding: 17px 24px;
+    font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     color: #fff;
-    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+    background: linear-gradient(135deg, #ff9c39 0%, #ff7f1d 55%, #df5f00 100%);
     border: none;
-    border-radius: 10px;
+    border-radius: 18px;
     cursor: pointer;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 16px 30px rgba(179, 84, 11, 0.28), inset 0 1px 0 rgba(255, 238, 211, 0.55);
 }
 
 .subscription-button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(255, 107, 107, 0.4);
-    background: linear-gradient(135deg, #FF8E8E 0%, #FFA0A0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 34px rgba(179, 84, 11, 0.34), inset 0 1px 0 rgba(255, 245, 228, 0.62);
+    background: linear-gradient(135deg, #ffb155 0%, #ff9031 55%, #eb6b0b 100%);
 }
 
 .subscription-button:active:not(:disabled) {
@@ -1301,9 +1316,10 @@ body {
 }
 
 .subscription-button:disabled {
-    opacity: 0.5;
+    opacity: 0.72;
     cursor: not-allowed;
-    background: rgba(180, 180, 180, 0.5);
+    color: rgba(255, 255, 255, 0.86);
+    background: linear-gradient(135deg, rgba(188, 188, 188, 0.72) 0%, rgba(160, 160, 160, 0.72) 100%);
     box-shadow: none;
 }
 
@@ -1315,8 +1331,8 @@ body {
 
 .subscription-message {
     width: 100%;
-    padding: 10px 14px;
-    border-radius: 8px;
+    padding: 12px 14px;
+    border-radius: 14px;
     font-size: 13px;
     font-weight: 500;
     text-align: center;
@@ -1346,21 +1362,22 @@ body {
 @media (max-width: 768px) {
     .email-subscription-section {
         max-width: 100%;
-        padding: 0 20px;
-        margin-top: 24px;
+        padding: 0;
+        margin-top: 2px;
     }
 
     .subscription-input,
     .subscription-button {
-        padding: 12px 16px;
-        font-size: 14px;
+        min-height: 56px;
+        padding: 14px 16px;
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
     .email-subscription-section {
-        padding: 0 16px;
-        margin-top: 20px;
+        padding: 0;
+        margin-top: 0;
     }
 
     .subscription-form {
@@ -1369,7 +1386,8 @@ body {
 
     .subscription-input,
     .subscription-button {
-        padding: 11px 14px;
-        font-size: 14px;
+        min-height: 52px;
+        padding: 12px 14px;
+        font-size: 0.92rem;
     }
 }
