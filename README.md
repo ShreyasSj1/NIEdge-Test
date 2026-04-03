@@ -1,52 +1,44 @@
-# NIEdge – A Website Project
+# NIEdge
 
-This repository contains the full source code of **NIEdge**, a custom-designed front-end website built using pure HTML, CSS, and JavaScript (no frameworks). The project focuses on responsive UI, clean layout, and browser-based client-side rendering.
+NIEdge is a static student platform for academic resources, PYQs, notes, and skills content. The site is still pure HTML/CSS/JavaScript, but the repo now includes a small build-maintenance layer so shared navigation and content updates do not require hand-editing every page.
 
----
+## Local Development
 
-## 🚀 Getting Started (Run Locally)
+1. Clone the repository.
+2. Open the root folder in VS Code.
+3. Run a local static server such as Live Server.
+4. Start from [index.html](/Users/sj/Desktop/NIEdge-main/index.html).
 
-1. Download or clone this repository to your system.
-2. Open the **NIEdge** root folder in **Visual Studio Code**.
-   - Right-click the folder → click **Open with VS Code**
-3. Open the file `index.html`
-4. Run it using the **Live Server** extension (Right-click > "Open with Live Server")
+## Project Structure
 
----
+- `index.html`, `events.html`, `chooseYear.html`, `subject-list.html`: primary product entry points.
+- `assets/css`, `assets/js`: shared styles and client-side scripts.
+- `2ndYear`, `skills`: section-specific pages and assets.
+- `data`: shared JSON data used by build scripts and client pages.
+- `scripts`: repo maintenance scripts for shared layout generation and migrations.
 
-## ✅ Required VS Code Extension
+## Shared Maintenance Workflow
 
-- **Live Server** – to launch the HTML file with auto refresh and local development server.
-- **HTML, CSS and Javascript** Support
+- Run `node scripts/build-site.js` after changing shared navigation.
+- Shared navigation is defined in `data/site-config.json`.
+- Event content is defined in `data/events.json`.
+- `navbar.html` is generated from config and injected into pages by `assets/js/navbar-loader.js`.
 
----
+## Architecture Notes
 
-## ✨ Features
+- Static hosting friendly: no bundler or framework required.
+- Shared layout is injected at runtime to avoid duplicated nav markup.
+- Repeated event content has been moved into JSON instead of hardcoded routes in JavaScript.
+- Placeholder routes are visibly labeled as "Coming soon" so unfinished sections are clearer to users.
 
-- Fully static website (HTML, CSS, JS)
-- Responsive front-end layout
-- Clean codebase, modular CSS and JS
-- Uses vanilla JavaScript (no external Javascript Libraries)
-- Easy to deploy on any static hosting platform
-
----
-
-## 🛠 Technologies Used
+## Stack
 
 - HTML5
-- CSS3 (Flexbox, Grid)
-- JavaScript (ES6/Vanilla)
+- CSS3
+- Vanilla JavaScript
+- Optional local server tooling such as Live Server
 
----
+## Known Constraints
 
-## 📌 Notes
-
-This is a front-end only website, so there is no backend or database integration. It can be hosted on GitHub Pages, Netlify, or any static hosting provider.
-
----
-
-## 👨‍💻 Author
-
-**Vansh**
-
----
+- Much of the site is still page-based and content-heavy, so future cleanup should keep moving repeated subject/module data into structured files.
+- Firebase is only used by the `work-in-progress` subscription form.

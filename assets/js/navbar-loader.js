@@ -1,77 +1,80 @@
-/**
- * navbar-loader.js
- * Fetches /navbar.html and injects it into the page.
- * Also handles the hamburger menu toggle for mobile.
- */
 (function () {
   "use strict";
 
-  // Find the placeholder or insert at body start
+  const PLACEHOLDER_HREF = "/work-in-progress.html";
+
   function injectNavbar(html) {
-    var placeholder = document.getElementById("navbar-placeholder");
-    if (placeholder) {
-      placeholder.outerHTML = html;
-    } else {
-      document.body.insertAdjacentHTML("afterbegin", html);
+    const placeholder = document.getElementById("navbar-placeholder");
+    if (!placeholder) {
+      return;
+    }
+
+    placeholder.outerHTML = html;
+  }
+
+  function markCurrentPage() {
+    const current = window.location.pathname.replace(/\/index\.html$/, "/");
+    document.querySelectorAll(".nav-links a").forEach(function (link) {
+      const url = new URL(link.href, window.location.origin);
+      const linkPath = url.pathname.replace(/\/index\.html$/, "/");
+
+      if (url.hash && current === "/" && url.pathname === "/index.html") {
+        return;
+      }
+
+      if (linkPath === current) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
+
+  function addUnavailableBadge(link) {
+    if (link.dataset.statusEnhanced === "true") {
+      return;
+    }
+
+    link.dataset.statusEnhanced = "true";
+    link.classList.add("niedge-unavailable-link");
+    link.setAttribute("aria-label", "Coming soon");
+    link.setAttribute("title", "This section is still being built.");
+
+    const badgeTarget =
+      link.querySelector(
+        ".subject__card, .resource-card, .module-card, .notes-card, .year-card, .language-card, .btn"
+      ) || link;
+
+    if (!badgeTarget.querySelector(".niedge-status-badge")) {
+      const badge = document.createElement("span");
+      badge.className = "niedge-status-badge";
+      badge.textContent = "Coming soon";
+      badgeTarget.appendChild(badge);
     }
   }
 
-  function setupHamburger() {
-    var hamburger = document.querySelector(".hamburger");
-    var navLinks = document.querySelector(".nav-links");
-    if (!hamburger || !navLinks) return;
-
-    hamburger.addEventListener("click", function (e) {
-      e.stopPropagation();
-      hamburger.classList.toggle("active");
-      navLinks.classList.toggle("active");
-      document.body.classList.toggle("menu-open");
-    });
-
-    // Close menu when a nav link is clicked
-    navLinks.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
-        document.body.classList.remove("menu-open");
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", function (e) {
-      if (
-        hamburger.classList.contains("active") &&
-        !hamburger.contains(e.target) &&
-        !navLinks.contains(e.target)
-      ) {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
-        document.body.classList.remove("menu-open");
-      }
-    });
-
-    // Close menu on resize to desktop
-    window.addEventListener("resize", function () {
-      if (window.innerWidth > 768 && hamburger.classList.contains("active")) {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
-        document.body.classList.remove("menu-open");
-      }
-    });
+  function annotateUnavailableLinks() {
+    document.querySelectorAll('a[href$="work-in-progress.html"], a[href="/work-in-progress.html"]').forEach(addUnavailableBadge);
   }
 
-  // Fetch and inject navbar
   fetch("/navbar.html")
     .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Failed to load navbar");
+      }
       return response.text();
     })
     .then(function (html) {
       injectNavbar(html);
-      setupHamburger();
-      // Dispatch event so other scripts know navbar is ready
+      markCurrentPage();
+      annotateUnavailableLinks();
       document.dispatchEvent(new Event("navbarLoaded"));
     })
-    .catch(function (err) {
-      console.error("Failed to load navbar:", err);
+    .catch(function (error) {
+      console.error("Failed to load navbar:", error);
     });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", annotateUnavailableLinks);
+  } else {
+    annotateUnavailableLinks();
+  }
 })();

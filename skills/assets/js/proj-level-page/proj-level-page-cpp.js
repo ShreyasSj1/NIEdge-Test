@@ -2,6 +2,8 @@
   const TOTAL_LEVELS = 50;
   const SIDE_PAD = 100;
 
+  initMobileMenu();
+
   const board = document.getElementById('px-board');
   const canvas = document.getElementById('px-canvas');
   const svg = document.getElementById('px-trace');
@@ -16,6 +18,33 @@
     const s = getComputedStyle(document.documentElement).getPropertyValue('--px-node-size').trim();
     const n = parseFloat(s); return isNaN(n) ? 80 : n;
   };
+
+  function initMobileMenu() {
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar");
+    if (!hamburger || !navLinks || !navbar) return;
+
+    const closeMenu = () => {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("active");
+      document.body.classList.remove("menu-open");
+    };
+
+    hamburger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+      document.body.classList.toggle("menu-open");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+    document.addEventListener("click", (event) => {
+      if (!navbar.contains(event.target) && navLinks.classList.contains("active")) {
+        closeMenu();
+      }
+    });
+  }
 
   function makeCurveFns(width) {
     const nodeR = cssNodeSize() / 2;

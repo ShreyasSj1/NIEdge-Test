@@ -99,6 +99,14 @@
     width: 100%;
 }
 
+.nav-links a[aria-current="page"] {
+    color: var(--primary-dark);
+}
+
+.nav-links a[aria-current="page"]::after {
+    width: 100%;
+}
+
 .hamburger {
     display: none;
     cursor: pointer;
@@ -113,6 +121,44 @@
     margin: 5px 0;
     transition: all 0.3s ease;
     border-radius: 2px;
+}
+
+.niedge-unavailable-link {
+    position: relative;
+}
+
+.niedge-unavailable-link .subject__card,
+.niedge-unavailable-link .resource-card,
+.niedge-unavailable-link .module-card,
+.niedge-unavailable-link .notes-card,
+.niedge-unavailable-link .year-card,
+.niedge-unavailable-link .language-card,
+.niedge-unavailable-link.btn,
+.niedge-unavailable-link .btn {
+    position: relative;
+}
+
+.niedge-status-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(33, 33, 33, 0.88);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.niedge-unavailable-link:hover .niedge-status-badge {
+    transform: translateY(-1px);
 }
 
 /* Focus states for accessibility */
@@ -183,6 +229,12 @@
 
     .hamburger.active .line:nth-child(3) {
         transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .niedge-status-badge {
+        top: 10px;
+        right: 10px;
+        font-size: 10px;
     }
 }
 

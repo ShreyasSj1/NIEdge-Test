@@ -272,6 +272,7 @@
     }
   </style>
     <link rel="stylesheet" href="/assets/css/navbar.css">
+    <script src="/assets/js/navbar-loader.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -306,31 +307,8 @@
     </section>
 
     <!-- Action Buttons -->
-    <nav class="navbar" style="will-change: transform">
-  <div class="container">
-    <a href="#" class="logo">
-      <img
-        src="/assets/images/LOGO.jpg"
-        class="logo-image"
-        alt="NIEdge Logo"
-      />
-    </a>
-    <div class="nav-links">
-      <a href="/index.html#home">HOME</a>
-      <a href="/work-in-progress.html">EVENTS</a>
-      <a href="/index.html#academics">ACADEMICS</a>
-      <a href="/index.html#skills-new">SKILLS</a>
-      <a href="/form.html">FEEDBACK</a>
-      <a href="/index.html#about">ABOUT US</a>
-    </div>
-    <div class="hamburger">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</nav>
-  </div>
+    <div id="navbar-placeholder"></div>
+</div>
 
   <script>
     function goBack() {
@@ -343,6 +321,34 @@
 
     // Touch-friendly interactions (kept your behavior)
     document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      const navbar = document.querySelector('.navbar');
+      if (hamburger && navLinks && navbar) {
+        function closeMenu() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
+
+        hamburger.addEventListener('click', function (event) {
+          event.stopPropagation();
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('active');
+          document.body.classList.toggle('menu-open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('click', function (event) {
+          if (!navbar.contains(event.target) && navLinks.classList.contains('active')) {
+            closeMenu();
+          }
+        });
+      }
+
       const buttons = document.querySelectorAll('.btn, .back-button');
       buttons.forEach(el => {
         el.addEventListener('touchstart', function () {

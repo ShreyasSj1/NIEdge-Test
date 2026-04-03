@@ -17,35 +17,12 @@
   <!-- CSS file -->
   <link rel="stylesheet" href="/skills/assets/css/ques-level-page.css">
     <link rel="stylesheet" href="/assets/css/navbar.css">
+    <script src="/assets/js/navbar-loader.js" defer></script>
 </head>
 <body>
   <!-- Navbar from mp-phy.html -->
-  <nav class="navbar" style="will-change: transform">
-  <div class="container">
-    <a href="#" class="logo">
-      <img
-        src="/assets/images/LOGO.jpg"
-        class="logo-image"
-        alt="NIEdge Logo"
-      />
-    </a>
-    <div class="nav-links">
-      <a href="/index.html#home">HOME</a>
-      <a href="/work-in-progress.html">EVENTS</a>
-      <a href="/index.html#academics">ACADEMICS</a>
-      <a href="/index.html#skills-new">SKILLS</a>
-      <a href="/form.html">FEEDBACK</a>
-      <a href="/index.html#about">ABOUT US</a>
-    </div>
-    <div class="hamburger">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
-    </div>
-  </div>
-</nav>
-
-  <main id="px-app">
+  <div id="navbar-placeholder"></div>
+<main id="px-app">
     <header class="px-header">
       <h1 class="px-title">Projects - CPP</h1>
       <span class="px-title-underline" aria-hidden="true"></span>
@@ -79,31 +56,5 @@
   <!-- Levels script -->
   <script src="/skills/assets/js/proj-level-page/proj-level-page-cpp.js"></script>
 
-  <!-- Navbar script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const hamburger = document.querySelector('.hamburger');
-      const navLinks = document.querySelector('.nav-links');
-
-      hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-      });
-
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function() {
-          hamburger.classList.remove('active');
-          navLinks.classList.remove('active');
-        });
-      });
-
-      document.addEventListener('click', function(event) {
-        if (!navLinks.contains(event.target) && !hamburger.contains(event.target)) {
-          hamburger.classList.remove('active');
-          navLinks.classList.remove('active');
-        }
-      });
-    });
-  </script>
-</body>
+  </body>
 </html>

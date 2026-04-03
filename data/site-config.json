@@ -1,0 +1,36 @@
+{
+  "navigation": {
+    "logoHref": "/index.html",
+    "logoAlt": "NIEdge Logo",
+    "items": [
+      {
+        "label": "HOME",
+        "href": "/index.html#home"
+      },
+      {
+        "label": "EVENTS",
+        "href": "/events.html"
+      },
+      {
+        "label": "ACADEMICS",
+        "href": "/index.html#academics"
+      },
+      {
+        "label": "SKILLS",
+        "href": "/index.html#skills-new"
+      },
+      {
+        "label": "FEEDBACK",
+        "href": "/form.html"
+      },
+      {
+        "label": "ABOUT US",
+        "href": "/index.html#about"
+      }
+    ]
+  },
+  "placeholder": {
+    "href": "/work-in-progress.html",
+    "label": "Coming soon"
+  }
+}
