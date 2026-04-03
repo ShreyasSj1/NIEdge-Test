@@ -173,6 +173,10 @@ function animateCounter(counter) {
   const targetText = counter.getAttribute("data-target") || counter.textContent;
   const numericTarget = parseInt(targetText.replace(/[^\d]/g, ""), 10);
   const suffix = targetText.replace(/[\d]/g, "");
+  const progressValue = parseInt(counter.getAttribute("data-progress") || "0", 10);
+  const progressBar = counter.parentElement
+    ? counter.parentElement.querySelector(".progress-bar")
+    : null;
   const duration = 1200;
   const start = performance.now();
 
@@ -180,9 +184,18 @@ function animateCounter(counter) {
     const progress = Math.min((now - start) / duration, 1);
     const value = Math.floor(progress * numericTarget);
     counter.textContent = value.toLocaleString() + suffix;
+    if (progressBar) {
+      progressBar.style.width = Math.round(progress * progressValue) + "%";
+    }
 
     if (progress < 1) {
       requestAnimationFrame(frame);
+      return;
+    }
+
+    counter.textContent = numericTarget.toLocaleString() + suffix;
+    if (progressBar) {
+      progressBar.style.width = progressValue + "%";
     }
   }
 
