@@ -134,6 +134,17 @@ function initHeroIntro() {
 }
 
 function initRevealAnimations() {
+  if (typeof IntersectionObserver !== "function") {
+    document
+      .querySelectorAll(".section-header, .feature, .member-card, .feedback-card, .connect, .stat-item")
+      .forEach(function (element) {
+        element.classList.add("animated");
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0)";
+      });
+    return;
+  }
+
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) {
