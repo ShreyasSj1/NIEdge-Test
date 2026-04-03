@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+function initHomePage() {
   initMobileMenu();
   initSmoothAnchors();
   initScrollEffects();
@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
   initRevealAnimations();
   initCounters();
   initInteractiveCards();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initHomePage, { once: true });
+} else {
+  initHomePage();
+}
 
 function initMobileMenu() {
   const hamburger = document.querySelector(".hamburger");
