@@ -169,11 +169,13 @@ function initRevealAnimations() {
 }
 
 function initCounters() {
+  const statsSection = document.querySelector(".skills");
   const counters = document.querySelectorAll(".counter");
   let hasAnimated = false;
-  let startTimeoutId = null;
+  let observer = null;
+  let ticking = false;
 
-  if (!counters.length) {
+  if (!statsSection || !counters.length) {
     return;
   }
 
@@ -213,35 +215,62 @@ function initCounters() {
     }
 
     hasAnimated = true;
-    if (startTimeoutId) {
-      clearTimeout(startTimeoutId);
-      startTimeoutId = null;
+    if (observer) {
+      observer.disconnect();
+      observer = null;
     }
+    window.removeEventListener("scroll", handleScrollCheck);
+    window.removeEventListener("resize", handleScrollCheck);
+    window.removeEventListener("load", handleScrollCheck);
+
     counters.forEach(function (counter) {
       animateCounter(counter);
     });
   }
 
-  function scheduleCounters(delay) {
-    if (hasAnimated) {
+  function isSectionVisible() {
+    const rect = statsSection.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top <= viewportHeight * 0.8 && rect.bottom >= viewportHeight * 0.2;
+  }
+
+  function maybeRunCounters() {
+    if (!hasAnimated && isSectionVisible()) {
+      runCounters();
+    }
+  }
+
+  function handleScrollCheck() {
+    if (ticking || hasAnimated) {
       return;
     }
 
-    if (startTimeoutId) {
-      clearTimeout(startTimeoutId);
-    }
-
-    startTimeoutId = setTimeout(runCounters, delay);
+    ticking = true;
+    requestAnimationFrame(function () {
+      maybeRunCounters();
+      ticking = false;
+    });
   }
 
   resetCounters();
-  scheduleCounters(180);
 
-  if (document.readyState !== "complete") {
-    window.addEventListener("load", function () {
-      scheduleCounters(120);
-    }, { once: true });
+  if (typeof IntersectionObserver === "function") {
+    observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          runCounters();
+        }
+      });
+    }, {
+      threshold: 0.35
+    });
+
+    observer.observe(statsSection);
   }
+
+  window.addEventListener("scroll", handleScrollCheck, { passive: true });
+  window.addEventListener("resize", handleScrollCheck, { passive: true });
+  window.addEventListener("load", handleScrollCheck);
 
   window.addEventListener("pageshow", function () {
     if (hasAnimated) {
@@ -249,21 +278,16 @@ function initCounters() {
       return;
     }
 
-    resetCounters();
-    scheduleCounters(80);
+    maybeRunCounters();
   });
 
   document.addEventListener("visibilitychange", function () {
     if (!hasAnimated && document.visibilityState === "visible") {
-      scheduleCounters(80);
+      maybeRunCounters();
     }
   });
 
-  setTimeout(function () {
-    if (!hasAnimated) {
-      runCounters();
-    }
-  }, 1000);
+  requestAnimationFrame(maybeRunCounters);
 }
 
 function animateCounter(counter) {
