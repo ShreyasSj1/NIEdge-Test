@@ -73,6 +73,9 @@
     function toggleMenu(event) {
       if (event) {
         event.preventDefault();
+        if (typeof event.stopImmediatePropagation === "function") {
+          event.stopImmediatePropagation();
+        }
         event.stopPropagation();
       }
 
@@ -84,12 +87,12 @@
 
     hamburger.setAttribute("aria-expanded", "false");
 
-    hamburger.addEventListener("click", toggleMenu);
+    hamburger.addEventListener("click", toggleMenu, true);
     hamburger.addEventListener("keydown", function (event) {
       if (event.key === "Enter" || event.key === " ") {
         toggleMenu(event);
       }
-    });
+    }, true);
 
     navLinks.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
