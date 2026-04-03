@@ -89,6 +89,10 @@
       return;
     }
 
+    if (link.closest(".nav-links")) {
+      return;
+    }
+
     link.dataset.statusEnhanced = "true";
     link.classList.add("niedge-unavailable-link");
     link.setAttribute("aria-label", "Coming soon");
