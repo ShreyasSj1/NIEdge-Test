@@ -179,13 +179,22 @@ function animateCounter(counter) {
     : null;
   const duration = 1200;
   const start = performance.now();
+  if (progressBar) {
+    progressBar.style.transition = "none";
+    progressBar.style.width = "0%";
+  }
+
+  function easeOutCubic(value) {
+    return 1 - Math.pow(1 - value, 3);
+  }
 
   function frame(now) {
     const progress = Math.min((now - start) / duration, 1);
-    const value = Math.floor(progress * numericTarget);
+    const easedProgress = easeOutCubic(progress);
+    const value = Math.floor(easedProgress * numericTarget);
     counter.textContent = value.toLocaleString() + suffix;
     if (progressBar) {
-      progressBar.style.width = Math.round(progress * progressValue) + "%";
+      progressBar.style.width = Math.round(easedProgress * progressValue) + "%";
     }
 
     if (progress < 1) {
