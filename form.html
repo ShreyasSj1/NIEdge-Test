@@ -14,13 +14,13 @@
     <script src="/assets/js/navbar-loader.js" defer></script>
     <style>
       :root {
-        --primary: #fbb040;
-        --primary-dark: #f9ed32;
-        --secondary: #4a5568;
-        --light: #f7fafc;
-        --accent: #ff6b6b;
-        --success: #22c55e;
-        --success-light: #4ade80;
+        --feedback-primary: #fbb040;
+        --feedback-primary-dark: #f9ed32;
+        --feedback-secondary: #4a5568;
+        --feedback-light: #f7fafc;
+        --feedback-accent: #ff6b6b;
+        --feedback-success: #22c55e;
+        --feedback-success-light: #4ade80;
       }
       * {
         box-sizing: border-box;
@@ -55,8 +55,8 @@
       .form-header {
         background: linear-gradient(
           135deg,
-          var(--primary) 0%,
-          var(--primary-dark) 100%
+          var(--feedback-primary) 0%,
+          var(--feedback-primary-dark) 100%
         );
         padding: 2rem;
         color: #303030;
@@ -111,7 +111,7 @@
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 500;
-        color: var(--secondary);
+        color: var(--feedback-secondary);
         transition: all 0.3s ease;
       }
       .form-control {
@@ -119,14 +119,14 @@
         padding: 0.875rem 1.25rem;
         border: 1px solid #e2e8f0;
         border-radius: 0.75rem;
-        background-color: var(--light);
+        background-color: var(--feedback-light);
         transition: all 0.3s ease;
         font-family: inherit;
         font-size: 1rem;
       }
       .form-control:focus {
         outline: none;
-        border-color: var(--primary);
+        border-color: var(--feedback-primary);
         box-shadow: 0 0 0 3px rgba(251, 176, 64, 0.2);
         transform: translateY(-2px);
       }
@@ -143,8 +143,8 @@
         padding: 1rem;
         background: linear-gradient(
           135deg,
-          var(--primary) 0%,
-          var(--primary-dark) 100%
+          var(--feedback-primary) 0%,
+          var(--feedback-primary-dark) 100%
         );
         color: #2d3748;
         border: none;
@@ -191,8 +191,8 @@
         display: none;
         background: linear-gradient(
           135deg,
-          var(--success-light) 0%,
-          var(--success) 100%
+          var(--feedback-success-light) 0%,
+          var(--feedback-success) 100%
         );
         color: white;
         padding: 1.25rem;
