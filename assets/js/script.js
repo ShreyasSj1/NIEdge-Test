@@ -152,13 +152,42 @@ function initRevealAnimations() {
 }
 
 function initCounters() {
-  const statsSection = document.querySelector(".skills");
   const counters = document.querySelectorAll(".counter");
   let hasAnimated = false;
-  let observer = null;
+  let startTimeoutId = null;
 
-  if (!statsSection || !counters.length) {
+  if (!counters.length) {
     return;
+  }
+
+  function setCounterFinal(counter) {
+    const targetText = counter.getAttribute("data-target") || counter.textContent;
+    const numericTarget = parseInt(targetText.replace(/[^\d]/g, ""), 10);
+    const suffix = targetText.replace(/[\d]/g, "");
+    const progressValue = parseInt(counter.getAttribute("data-progress") || "0", 10);
+    const progressBar = counter.parentElement
+      ? counter.parentElement.querySelector(".progress-bar")
+      : null;
+
+    counter.textContent = numericTarget.toLocaleString() + suffix;
+    if (progressBar) {
+      progressBar.style.transition = "none";
+      progressBar.style.width = progressValue + "%";
+    }
+  }
+
+  function resetCounters() {
+    counters.forEach(function (counter) {
+      const progressBar = counter.parentElement
+        ? counter.parentElement.querySelector(".progress-bar")
+        : null;
+
+      counter.textContent = "0";
+      if (progressBar) {
+        progressBar.style.transition = "none";
+        progressBar.style.width = "0%";
+      }
+    });
   }
 
   function runCounters() {
@@ -167,62 +196,57 @@ function initCounters() {
     }
 
     hasAnimated = true;
+    if (startTimeoutId) {
+      clearTimeout(startTimeoutId);
+      startTimeoutId = null;
+    }
     counters.forEach(function (counter) {
       animateCounter(counter);
     });
   }
 
-  function cleanupObserver() {
-    if (observer) {
-      observer.unobserve(statsSection);
-      observer.disconnect();
-      observer = null;
-    }
-  }
-
-  function maybeRunCounters() {
+  function scheduleCounters(delay) {
     if (hasAnimated) {
-      cleanupObserver();
       return;
     }
 
-    const rect = statsSection.getBoundingClientRect();
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-    const sectionVisible = rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.2;
-
-    if (sectionVisible) {
-      runCounters();
-      cleanupObserver();
+    if (startTimeoutId) {
+      clearTimeout(startTimeoutId);
     }
+
+    startTimeoutId = setTimeout(runCounters, delay);
   }
 
-  observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        runCounters();
-        cleanupObserver();
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -5% 0px"
+  resetCounters();
+  scheduleCounters(180);
+
+  if (document.readyState !== "complete") {
+    window.addEventListener("load", function () {
+      scheduleCounters(120);
+    }, { once: true });
+  }
+
+  window.addEventListener("pageshow", function () {
+    if (hasAnimated) {
+      counters.forEach(setCounterFinal);
+      return;
+    }
+
+    resetCounters();
+    scheduleCounters(80);
   });
 
-  observer.observe(statsSection);
+  document.addEventListener("visibilitychange", function () {
+    if (!hasAnimated && document.visibilityState === "visible") {
+      scheduleCounters(80);
+    }
+  });
 
-  window.addEventListener("load", maybeRunCounters, { once: true });
-  window.addEventListener("pageshow", maybeRunCounters, { once: true });
-  window.addEventListener("scroll", maybeRunCounters, { passive: true });
-  window.addEventListener("resize", maybeRunCounters, { passive: true });
-
-  requestAnimationFrame(maybeRunCounters);
-  setTimeout(maybeRunCounters, 250);
-  setTimeout(maybeRunCounters, 1000);
-
-  if (window.scrollY + window.innerHeight >= statsSection.offsetTop + 40) {
-    runCounters();
-    cleanupObserver();
-  }
+  setTimeout(function () {
+    if (!hasAnimated) {
+      runCounters();
+    }
+  }, 1000);
 }
 
 function animateCounter(counter) {
