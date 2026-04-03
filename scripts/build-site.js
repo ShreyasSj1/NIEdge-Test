@@ -61,6 +61,14 @@ ${links}
 `;
 }
 
+function inlineNavbar(content) {
+  if (!content.includes('<div id="navbar-placeholder"></div>')) {
+    return content;
+  }
+
+  return content.replace('<div id="navbar-placeholder"></div>', renderNavbar().trim());
+}
+
 function ensureHeadIncludes(content, hrefOrSrc, tagMarkup) {
   if (content.includes(hrefOrSrc)) {
     return content;
@@ -92,9 +100,15 @@ function processHtml(filePath) {
   let content = original;
 
   const hadNavbar = /<nav\s+class="navbar"/i.test(content);
+  const hadPlaceholder = content.includes('<div id="navbar-placeholder"></div>');
+
   if (hadNavbar) {
     content = migrateNavbar(content);
+  }
+
+  if (hadNavbar || hadPlaceholder) {
     content = stripInlineNavbarScripts(content);
+    content = inlineNavbar(content);
     content = ensureHeadIncludes(
       content,
       "/assets/js/navbar-loader.js",

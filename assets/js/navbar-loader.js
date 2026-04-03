@@ -25,6 +25,17 @@
     placeholder.outerHTML = html;
   }
 
+  function finalizeNavbar() {
+    if (!document.querySelector(".navbar")) {
+      return;
+    }
+
+    markCurrentPage();
+    initMobileMenu();
+    annotateUnavailableLinks();
+    document.dispatchEvent(new Event("navbarLoaded"));
+  }
+
   function markCurrentPage() {
     const current = window.location.pathname.replace(/\/index\.html$/, "/");
     document.querySelectorAll(".nav-links a").forEach(function (link) {
@@ -134,23 +145,28 @@
 
   preloadNavbarLogo();
 
-  fetch("/navbar.html")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Failed to load navbar");
-      }
-      return response.text();
-    })
-    .then(function (html) {
-      injectNavbar(html);
-      markCurrentPage();
-      initMobileMenu();
-      annotateUnavailableLinks();
-      document.dispatchEvent(new Event("navbarLoaded"));
-    })
-    .catch(function (error) {
-      console.error("Failed to load navbar:", error);
-    });
+  if (document.getElementById("navbar-placeholder")) {
+    fetch("/navbar.html")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to load navbar");
+        }
+        return response.text();
+      })
+      .then(function (html) {
+        injectNavbar(html);
+        finalizeNavbar();
+      })
+      .catch(function (error) {
+        console.error("Failed to load navbar:", error);
+      });
+  } else {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", finalizeNavbar, { once: true });
+    } else {
+      finalizeNavbar();
+    }
+  }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", annotateUnavailableLinks);
