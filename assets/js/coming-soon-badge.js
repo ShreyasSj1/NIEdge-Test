@@ -123,8 +123,34 @@
     }
   }
 
+  function cleanupInvalidBadges() {
+    document.querySelectorAll("a[href]").forEach(function (link) {
+      var cardWrapper =
+        link.parentElement &&
+        link.parentElement.classList &&
+        link.parentElement.classList.contains("resource-card")
+          ? link.parentElement
+          : null;
+
+      if (link.dataset.hidePlaceholderBadge === "true" || !isWorkInProgressLink(link)) {
+        link.classList.remove("niedge-unavailable-link");
+        link.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
+          badge.remove();
+        });
+
+        if (cardWrapper && !isWorkInProgressLink(link)) {
+          cardWrapper.classList.remove("niedge-unavailable-card");
+          cardWrapper.querySelectorAll(":scope > .niedge-status-badge").forEach(function (badge) {
+            badge.remove();
+          });
+        }
+      }
+    });
+  }
+
   function init() {
     installStyles();
+    cleanupInvalidBadges();
     document.querySelectorAll("a[href]").forEach(addBadge);
   }
 
