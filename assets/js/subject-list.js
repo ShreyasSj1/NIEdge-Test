@@ -190,6 +190,11 @@ function initScrollEffects() {
   const nav = document.querySelector('.header-nav');
   let ticking = false;
 
+  if (nav) {
+    nav.style.transform = 'translateY(0)';
+    nav.style.top = '0';
+  }
+
   function update() {
     const y = window.scrollY;
     if (nav) {
@@ -203,7 +208,7 @@ function initScrollEffects() {
         nav.style.boxShadow = '0 8px 25px rgba(255, 193, 7, 0.15)';
       }
       if (window.innerWidth > 768) {
-        nav.style.transform = (y > lastScrollY && y > 200) ? 'translateY(-100%)' : 'translateY(0)';
+        nav.style.transform = 'translateY(0)';
       }
     }
     document.querySelectorAll('.shape').forEach((shape, i) => {
@@ -222,6 +227,7 @@ function initScrollEffects() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  update();
 }
 
 function initBackToTop() {

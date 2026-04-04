@@ -70,6 +70,11 @@ function initScrollEffects() {
     const navbar = document.querySelector('.navbar');
     let ticking = false;
 
+    if (navbar) {
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.top = '0';
+    }
+
     function updateScrollEffects() {
         const scrollY = window.scrollY;
         
@@ -87,11 +92,7 @@ function initScrollEffects() {
             
             // Hide/show navbar on scroll (desktop only)
             if (window.innerWidth > 768) {
-                if (scrollY > lastScrollY && scrollY > 200) {
-                    navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    navbar.style.transform = 'translateY(0)';
-                }
+                navbar.style.transform = 'translateY(0)';
             }
         }
         
@@ -114,6 +115,7 @@ function initScrollEffects() {
     }
 
     window.addEventListener('scroll', requestTick, { passive: true });
+    updateScrollEffects();
 }
 
 // Download handlers with proper file downloads

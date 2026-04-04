@@ -108,13 +108,18 @@ function initScrollEffects() {
   let lastScrollY = 0;
   let ticking = false;
 
+  if (navbar) {
+    navbar.style.transform = "translateY(0)";
+    navbar.style.top = "0";
+  }
+
   function update() {
     const scrollY = window.scrollY;
     if (navbar) {
       navbar.style.background = scrollY > 100 ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.95)";
       navbar.style.boxShadow = scrollY > 100 ? "0 10px 30px rgba(255, 193, 7, 0.2)" : "0 8px 25px rgba(255, 193, 7, 0.15)";
       if (window.innerWidth > 768) {
-        navbar.style.transform = scrollY > lastScrollY && scrollY > 220 ? "translateY(-100%)" : "translateY(0)";
+        navbar.style.transform = "translateY(0)";
       }
     }
 
@@ -132,6 +137,8 @@ function initScrollEffects() {
       ticking = true;
     }
   }, { passive: true });
+
+  update();
 }
 
 function initCards() {

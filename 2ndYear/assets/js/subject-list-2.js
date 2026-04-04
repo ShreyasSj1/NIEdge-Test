@@ -180,6 +180,11 @@ function initScrollEffects() {
   let lastY = window.scrollY, ticking = false;
   const nav = document.querySelector('.header-nav');
 
+  if (nav) {
+    nav.style.transform = 'translateY(0)';
+    nav.style.top = '0';
+  }
+
   const run = () => {
     const y = window.scrollY;
     if (nav) {
@@ -193,7 +198,7 @@ function initScrollEffects() {
         nav.style.boxShadow = '0 8px 25px rgba(255, 193, 7, 0.15)';
       }
       if (window.innerWidth > 768) {
-        nav.style.transform = (y > lastY && y > 200) ? 'translateY(-100%)' : 'translateY(0)';
+        nav.style.transform = 'translateY(0)';
       }
     }
     document.querySelectorAll('.shape').forEach((s, i) => {
@@ -205,6 +210,7 @@ function initScrollEffects() {
 
   const req = () => { if (!ticking) { requestAnimationFrame(run); ticking = true; } };
   window.addEventListener('scroll', req, { passive:true });
+  run();
 }
 
 function initBackToTop() {
