@@ -35,6 +35,7 @@
       ".niedge-unavailable-link.notes-card,",
       ".niedge-unavailable-link.year-card-link,",
       ".niedge-unavailable-link.language-card{position:relative;}",
+      ".niedge-unavailable-card{position:relative;}",
       ".niedge-unavailable-link .subject__card,",
       ".niedge-unavailable-link .resource-card,",
       ".niedge-unavailable-link .module-card,",
@@ -55,7 +56,8 @@
       ".niedge-unavailable-link.module-card>.niedge-status-badge,",
       ".niedge-unavailable-link.notes-card>.niedge-status-badge,",
       ".niedge-unavailable-link.year-card-link>.niedge-status-badge,",
-      ".niedge-unavailable-link.language-card>.niedge-status-badge{position:absolute;top:14px;right:14px;z-index:2;}",
+      ".niedge-unavailable-link.language-card>.niedge-status-badge,",
+      ".niedge-unavailable-card>.niedge-status-badge{position:absolute;top:14px;right:14px;z-index:2;}",
       ".nav-links .niedge-unavailable-link,.quick-links .niedge-unavailable-link,footer .niedge-unavailable-link{display:inline-flex;align-items:center;gap:8px;}",
       ".nav-links .niedge-status-badge,.quick-links .niedge-status-badge,footer .niedge-status-badge{position:static;padding:2px 8px;font-size:10px;box-shadow:none;background:rgba(255,143,0,.12);color:#ff8f00;}",
       ".niedge-unavailable-link:hover .niedge-status-badge{transform:translateY(-1px);}"
@@ -68,7 +70,18 @@
       return;
     }
 
-    if (link.querySelector(".niedge-status-badge")) {
+    if (link.closest(".nav-links") || link.closest(".navbar")) {
+      return;
+    }
+
+    var cardWrapper =
+      link.parentElement &&
+      link.parentElement.classList &&
+      link.parentElement.classList.contains("resource-card")
+        ? link.parentElement
+        : null;
+
+    if (link.querySelector(".niedge-status-badge") || (cardWrapper && cardWrapper.querySelector(".niedge-status-badge"))) {
       return;
     }
 
@@ -99,7 +112,10 @@
       return link.querySelector(selector);
     });
 
-    if (hasCardTarget || linkIsCard) {
+    if (cardWrapper) {
+      cardWrapper.classList.add("niedge-unavailable-card");
+      cardWrapper.appendChild(badge);
+    } else if (hasCardTarget || linkIsCard) {
       link.appendChild(badge);
     } else {
       link.appendChild(document.createTextNode(" "));
