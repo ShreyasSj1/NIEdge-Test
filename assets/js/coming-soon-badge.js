@@ -29,6 +29,12 @@
     style.id = "niedge-coming-soon-styles";
     style.textContent = [
       ".niedge-unavailable-link{position:relative;}",
+      ".niedge-unavailable-link.subject__link,",
+      ".niedge-unavailable-link.resource-link,",
+      ".niedge-unavailable-link.module-card,",
+      ".niedge-unavailable-link.notes-card,",
+      ".niedge-unavailable-link.year-card-link,",
+      ".niedge-unavailable-link.language-card{position:relative;}",
       ".niedge-unavailable-link .subject__card,",
       ".niedge-unavailable-link .resource-card,",
       ".niedge-unavailable-link .module-card,",
@@ -43,7 +49,13 @@
       ".niedge-unavailable-link .module-card+.niedge-status-badge,",
       ".niedge-unavailable-link .notes-card+.niedge-status-badge,",
       ".niedge-unavailable-link .year-card+.niedge-status-badge,",
-      ".niedge-unavailable-link .language-card+.niedge-status-badge{position:absolute;top:14px;right:14px;z-index:2;}",
+      ".niedge-unavailable-link .language-card+.niedge-status-badge,",
+      ".niedge-unavailable-link.subject__link>.niedge-status-badge,",
+      ".niedge-unavailable-link.resource-link>.niedge-status-badge,",
+      ".niedge-unavailable-link.module-card>.niedge-status-badge,",
+      ".niedge-unavailable-link.notes-card>.niedge-status-badge,",
+      ".niedge-unavailable-link.year-card-link>.niedge-status-badge,",
+      ".niedge-unavailable-link.language-card>.niedge-status-badge{position:absolute;top:14px;right:14px;z-index:2;}",
       ".nav-links .niedge-unavailable-link,.quick-links .niedge-unavailable-link,footer .niedge-unavailable-link{display:inline-flex;align-items:center;gap:8px;}",
       ".nav-links .niedge-status-badge,.quick-links .niedge-status-badge,footer .niedge-status-badge{position:static;padding:2px 8px;font-size:10px;box-shadow:none;background:rgba(255,143,0,.12);color:#ff8f00;}",
       ".niedge-unavailable-link:hover .niedge-status-badge{transform:translateY(-1px);}"
@@ -75,11 +87,19 @@
       ".language-card"
     ];
 
+    var linkIsCard =
+      link.matches(".subject__link") ||
+      link.matches(".resource-link") ||
+      link.matches(".module-card") ||
+      link.matches(".notes-card") ||
+      link.matches(".year-card-link") ||
+      link.matches(".language-card");
+
     var hasCardTarget = blockTargets.some(function (selector) {
       return link.querySelector(selector);
     });
 
-    if (hasCardTarget) {
+    if (hasCardTarget || linkIsCard) {
       link.appendChild(badge);
     } else {
       link.appendChild(document.createTextNode(" "));
