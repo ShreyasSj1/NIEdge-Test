@@ -13,6 +13,7 @@
 <title>1st Year Subjects - NIEdge</title>
 <link rel="stylesheet" href="assets/css/subject-list.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- NIEdge change: all first-year subject cards are intentionally kept badge-free for easier review and cleaner UI. -->
 </head>
 <body>
 
@@ -74,6 +75,7 @@
     </div>
 
     <div class="subjects" id="subjects">
+      <!-- NIEdge change: every 1st-year subject link explicitly opts out of the shared Coming soon badge logic. -->
       <a href="notes-qb-page_caed.html" class="subject__link" data-hide-placeholder-badge="true">
         <div class="subject__card" data-subject="caed">
           <div class="subject__icon"><i class="fas fa-drafting-compass"></i></div>
@@ -223,6 +225,7 @@
 </div>
 
 <script src="/assets/js/subject-list.js"></script>
+  <!-- NIEdge change: shared badge script stays loaded here, but the first-year cards above explicitly suppress it. -->
   <script src="/assets/js/coming-soon-badge.js"></script>
 </body>
 </html>

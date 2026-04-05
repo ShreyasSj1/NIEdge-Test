@@ -30,6 +30,7 @@ class SimplifiedApp {
   }
 
   startLoadingSequence() {
+    // NIEdge change: once the loader finishes, reveal the restored popup card instead of leaving the main content hidden.
     const loader = document.getElementById("loader");
     const progressFill = document.querySelector(".loader-fill");
     const percentage = document.querySelector(".loader-percentage");
@@ -171,6 +172,7 @@ class EmailSubscriptionHandler {
   }
 
   showMessage(text, type) {
+    // NIEdge change: keep feedback messages visible through the shared .show state used by the refreshed popup UI.
     if (!this.message) {
       return;
     }

@@ -1,4 +1,5 @@
 function initHomePage() {
+  // NIEdge change: initialize immediately or after DOM ready so mobile browsers don't miss homepage setup.
   initMobileMenu();
   initSmoothAnchors();
   initScrollEffects();
@@ -176,6 +177,7 @@ function initRevealAnimations() {
 }
 
 function initCounters() {
+  // NIEdge change: trigger website stats only when the stats section is actually visible, with reload/mobile fallbacks.
   const statsSection = document.querySelector(".skills");
   const counters = document.querySelectorAll(".counter");
   let hasAnimated = false;
@@ -298,6 +300,7 @@ function initCounters() {
 }
 
 function animateCounter(counter) {
+  // NIEdge change: keep the number animation and progress bar movement in sync.
   const targetText = counter.getAttribute("data-target") || counter.textContent;
   const numericTarget = parseInt(targetText.replace(/[^\d]/g, ""), 10);
   const suffix = targetText.replace(/[\d]/g, "");

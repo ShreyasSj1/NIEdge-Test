@@ -55,6 +55,7 @@
 }
 
 .logo-image {
+    /* NIEdge change: fixed logo box and removed the old overscaled transform to reduce refresh/load distortion. */
     display: block;
     width: 48px;
     height: 48px;

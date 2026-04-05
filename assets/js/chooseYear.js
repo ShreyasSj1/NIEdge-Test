@@ -90,6 +90,7 @@ function initScrollEffects(shapeSelector) {
 }
 
 function initYearCards() {
+  // NIEdge change: re-enable the academics card reveal so the year cards don't stay visually hidden.
   const cards = document.querySelectorAll(".year-card, .year-card-link");
   cards.forEach(function (card) {
     if (card.classList.contains("year-card")) {

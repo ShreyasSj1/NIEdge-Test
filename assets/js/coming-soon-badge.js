@@ -1,4 +1,5 @@
 (function () {
+  // NIEdge change: centralize the "Coming soon" badge rules and skip pages/links we intentionally kept badge-free.
   if (window.location.pathname.endsWith("/index.html") || window.location.pathname === "/" || window.location.pathname === "") {
     return;
   }
@@ -66,6 +67,7 @@
   }
 
   function addBadge(link) {
+    // NIEdge change: only direct work-in-progress links can receive an auto badge.
     if (!isWorkInProgressLink(link) || link.dataset.hidePlaceholderBadge === "true" || link.dataset.forcePlaceholderBadge === "true") {
       return;
     }
@@ -124,6 +126,7 @@
   }
 
   function cleanupInvalidBadges() {
+    // NIEdge change: remove stray cached/generated badges unless a link explicitly forces or allows them.
     document.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
       var ownerLink = badge.closest("a[href]");
       if (!ownerLink || ownerLink.dataset.hidePlaceholderBadge === "true" || (!isWorkInProgressLink(ownerLink) && ownerLink.dataset.forcePlaceholderBadge !== "true")) {
