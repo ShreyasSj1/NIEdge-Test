@@ -66,7 +66,7 @@
   }
 
   function addBadge(link) {
-    if (!isWorkInProgressLink(link) || link.dataset.hidePlaceholderBadge === "true") {
+    if (!isWorkInProgressLink(link) || link.dataset.hidePlaceholderBadge === "true" || link.dataset.forcePlaceholderBadge === "true") {
       return;
     }
 
@@ -126,7 +126,7 @@
   function cleanupInvalidBadges() {
     document.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
       var ownerLink = badge.closest("a[href]");
-      if (!ownerLink || ownerLink.dataset.hidePlaceholderBadge === "true" || !isWorkInProgressLink(ownerLink)) {
+      if (!ownerLink || ownerLink.dataset.hidePlaceholderBadge === "true" || (!isWorkInProgressLink(ownerLink) && ownerLink.dataset.forcePlaceholderBadge !== "true")) {
         badge.remove();
       }
     });
@@ -139,7 +139,7 @@
           ? link.parentElement
           : null;
 
-      if (link.dataset.hidePlaceholderBadge === "true" || !isWorkInProgressLink(link)) {
+      if (link.dataset.hidePlaceholderBadge === "true" || (!isWorkInProgressLink(link) && link.dataset.forcePlaceholderBadge !== "true")) {
         link.classList.remove("niedge-unavailable-link");
         link.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
           badge.remove();
@@ -152,7 +152,7 @@
           });
         }
 
-        if (!isWorkInProgressLink(link)) {
+        if (!isWorkInProgressLink(link) && link.dataset.forcePlaceholderBadge !== "true") {
           link.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
             badge.remove();
           });
