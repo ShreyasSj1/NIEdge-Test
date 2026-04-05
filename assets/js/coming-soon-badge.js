@@ -124,6 +124,13 @@
   }
 
   function cleanupInvalidBadges() {
+    document.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
+      var ownerLink = badge.closest("a[href]");
+      if (!ownerLink || ownerLink.dataset.hidePlaceholderBadge === "true" || !isWorkInProgressLink(ownerLink)) {
+        badge.remove();
+      }
+    });
+
     document.querySelectorAll("a[href]").forEach(function (link) {
       var cardWrapper =
         link.parentElement &&
@@ -141,6 +148,12 @@
         if (cardWrapper && !isWorkInProgressLink(link)) {
           cardWrapper.classList.remove("niedge-unavailable-card");
           cardWrapper.querySelectorAll(":scope > .niedge-status-badge").forEach(function (badge) {
+            badge.remove();
+          });
+        }
+
+        if (!isWorkInProgressLink(link)) {
+          link.querySelectorAll(".niedge-status-badge").forEach(function (badge) {
             badge.remove();
           });
         }
